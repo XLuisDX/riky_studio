@@ -1,14 +1,14 @@
-import { useState } from "react"
-import { Container } from "./Container"
+import { useState } from "react";
+import { Container } from "./Container";
 
 function InfoCard({
   label,
   value,
   hint,
 }: {
-  label: string
-  value: string
-  hint?: string
+  label: string;
+  value: string;
+  hint?: string;
 }) {
   return (
     <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft">
@@ -16,18 +16,17 @@ function InfoCard({
       <p className="mt-2 text-base font-semibold text-white">{value}</p>
       {hint ? <p className="mt-2 text-sm text-white/70">{hint}</p> : null}
     </div>
-  )
+  );
 }
 
 export function Contact() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle")
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+    e.preventDefault();
 
-    // TODO: wire to email service / backend later.
-    setStatus("sending")
-    window.setTimeout(() => setStatus("sent"), 700)
+    setStatus("sending");
+    window.setTimeout(() => setStatus("sent"), 700);
   }
 
   return (
@@ -40,8 +39,9 @@ export function Contact() {
               Let’s build something that looks premium.
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">
-              Tell us what you need—video ads, food photography, or a complete digital signage setup.
-              We’ll reply with next steps, timeline, and pricing.
+              Tell us what you need—video ads, food photography, or a complete
+              digital signage setup. We’ll reply with next steps, timeline, and
+              pricing.
             </p>
           </div>
 
@@ -64,7 +64,6 @@ export function Contact() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-12">
-          {/* Form */}
           <div className="md:col-span-7">
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft md:p-8">
               <form onSubmit={onSubmit} className="space-y-4">
@@ -140,26 +139,50 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Info */}
           <div className="grid gap-4 md:col-span-5">
             <InfoCard
               label="EMAIL"
-              value="hello@rikystudio.com"
-              hint="Replace with your real email."
+              value="rikistudy85@gmail.com"
+              hint="We typically reply within 24 hours."
             />
-            <InfoCard
-              label="PHONE"
-              value="+1 (000) 000-0000"
-              hint="Replace with your real number."
-            />
-            <InfoCard
-              label="SERVICE"
-              value="Restaurants • Local Businesses"
-              hint="On-site installs available."
-            />
+
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft">
+              <p className="text-xs tracking-[0.22em] text-white/60">PHONES</p>
+              <div className="mt-2 space-y-2 text-sm font-semibold">
+                <a
+                  className="text-white hover:text-sky transition"
+                  href="tel:+18036790904"
+                >
+                  +1 (803) 679-0904
+                </a>
+                <div className="text-white/30">•</div>
+                <a
+                  className="text-white hover:text-sky transition"
+                  href="tel:+18033410956"
+                >
+                  +1 (803) 341-0956
+                </a>
+              </div>
+              <p className="mt-2 text-sm text-white/70">
+                Call or text to book a shoot or installation.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-soft">
+              <p className="text-xs tracking-[0.22em] text-white/60">EMAIL</p>
+              <a
+                className="mt-2 block text-base font-semibold text-white hover:text-sky transition"
+                href="mailto:rikistudy85@gmail.com"
+              >
+                rikistudy85@gmail.com
+              </a>
+              <p className="mt-2 text-sm text-white/70">
+                We typically reply within 24 hours.
+              </p>
+            </div>
           </div>
         </div>
       </Container>
     </section>
-  )
+  );
 }

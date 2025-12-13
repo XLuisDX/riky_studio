@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Container } from "./Container";
+import { BrandLogo } from "./BrandLogo";
 
 type NavItem = { label: string; href: string };
 
@@ -7,13 +8,15 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const servicesRef = useRef<HTMLDivElement | null>(null);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   const navItems: NavItem[] = useMemo(
     () => [
-      { label: "How We Work", href: "#how-we-work" },
+      { label: "Services", href: "#services" },
+      { label: "About", href: "#about" },
+      { label: "Service Area", href: "#service-area" },
       { label: "Portfolio", href: "#portfolio" },
       { label: "Pricing", href: "#pricing" },
-      { label: "Workshop", href: "#workshop" },
       { label: "Testimonials", href: "#testimonials" },
       { label: "Contact", href: "#contact" },
     ],
@@ -32,6 +35,46 @@ export function Navbar() {
   );
 
   useEffect(() => {
+    const ids = [
+      "services",
+      "about",
+      "service-area",
+      "how-we-work",
+      "portfolio",
+      "pricing",
+      "workshop",
+      "testimonials",
+      "contact",
+    ];
+
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort(
+            (a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0)
+          )[0];
+
+        if (visible?.target?.id) setActiveSection(visible.target.id);
+      },
+      {
+        root: null,
+        rootMargin: "-30% 0px -55% 0px",
+        threshold: [0.1, 0.2, 0.35, 0.5, 0.65],
+      }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     function onClickOutside(e: MouseEvent) {
       if (!servicesRef.current) return;
       if (!servicesRef.current.contains(e.target as Node))
@@ -41,13 +84,23 @@ export function Navbar() {
     return () => window.removeEventListener("mousedown", onClickOutside);
   }, []);
 
+  function navLinkClass(href: string) {
+    const id = href.startsWith("#") ? href.slice(1) : "";
+    const isActive = id && id === activeSection;
+
+    return [
+      "text-sm transition",
+      isActive ? "text-white" : "text-white/80 hover:text-white",
+    ].join(" ");
+  }
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-prussian/70 backdrop-blur">
       <Container>
         <div className="flex h-16 items-center justify-between">
           <a href="#top" className="group flex items-center gap-3">
-            <div className="h-9 w-9 rounded-xl bg-white/5 ring-1 ring-white/10 grid place-items-center">
-              <span className="text-sky font-semibold">R</span>
+            <div className="h-12 w-12 rounded-xl border border-white/10 bg-white/5 p-0">
+              <BrandLogo className="h-full w-full object-contain" />
             </div>
 
             <div className="leading-tight">
@@ -97,21 +150,13 @@ export function Navbar() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-sm text-white/80 hover:text-white transition"
+                className={navLinkClass(item.href)}
               >
                 {item.label}
               </a>
             ))}
-
-            <a
-              href="#contact"
-              className="rounded-xl bg-sky px-4 py-2 text-sm font-semibold text-prussian hover:brightness-110 transition"
-            >
-              Cotizar
-            </a>
           </nav>
 
-          {/* Mobile button */}
           <button
             className="md:hidden rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/90"
             onClick={() => setMobileOpen((v) => !v)}
@@ -122,7 +167,6 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Mobile menu */}
         {mobileOpen && (
           <div className="md:hidden pb-4">
             <div className="mt-2 rounded-2xl border border-white/10 bg-white/5 p-3">

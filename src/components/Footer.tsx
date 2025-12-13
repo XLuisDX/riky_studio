@@ -1,16 +1,17 @@
-import { Container } from "./Container"
+import { Container } from "./Container";
+import { BrandLogo } from "./BrandLogo";
 
 export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-prussian/40">
       <Container>
         <div className="grid gap-10 py-12 md:grid-cols-12">
-          {/* Brand */}
           <div className="md:col-span-4">
             <a href="#top" className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-white/5 ring-1 ring-white/10 grid place-items-center">
-                <span className="text-sky font-semibold">R</span>
+              <div className="h-11 w-11 rounded-xl border border-white/10 bg-white/5 p-0">
+                <BrandLogo className="h-full w-full object-contain" />
               </div>
+
               <div className="leading-tight">
                 <div className="text-sm font-semibold tracking-wide text-white">
                   Riky Studio
@@ -22,15 +23,18 @@ export function Footer() {
             </a>
 
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
-              Premium ad videos, commercial photography, and digital signage setups for restaurants
-              and local businesses.
+              Premium ad videos, commercial photography, and digital signage
+              setups for restaurants and local businesses.
             </p>
           </div>
 
-          {/* Newsletter */}
           <div className="md:col-span-5">
-            <p className="text-xs tracking-[0.22em] text-white/60">NEWSLETTER</p>
-            <h3 className="mt-2 text-lg font-semibold text-white">Get occasional tips & offers.</h3>
+            <p className="text-xs tracking-[0.22em] text-white/60">
+              NEWSLETTER
+            </p>
+            <h3 className="mt-2 text-lg font-semibold text-white">
+              Get occasional tips & offers.
+            </h3>
             <p className="mt-2 text-sm text-white/70">
               No spam. Just practical content and updates.
             </p>
@@ -58,35 +62,82 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Links */}
           <div className="grid gap-8 sm:grid-cols-2 md:col-span-3">
             <div>
               <p className="text-xs tracking-[0.22em] text-white/60">PAGES</p>
               <ul className="mt-3 space-y-2 text-sm">
-                <li><a className="text-white/75 hover:text-white" href="#services">Services</a></li>
-                <li><a className="text-white/75 hover:text-white" href="#portfolio">Portfolio</a></li>
-                <li><a className="text-white/75 hover:text-white" href="#pricing">Pricing</a></li>
-                <li><a className="text-white/75 hover:text-white" href="#workshop">Workshop</a></li>
-                <li><a className="text-white/75 hover:text-white" href="#contact">Contact</a></li>
+                <li>
+                  <a
+                    className="text-white/75 hover:text-white"
+                    href="#services"
+                  >
+                    Services
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="text-white/75 hover:text-white"
+                    href="#portfolio"
+                  >
+                    Portfolio
+                  </a>
+                </li>
+                <li>
+                  <a className="text-white/75 hover:text-white" href="#pricing">
+                    Pricing
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="text-white/75 hover:text-white"
+                    href="#workshop"
+                  >
+                    Workshop
+                  </a>
+                </li>
+                <li>
+                  <a className="text-white/75 hover:text-white" href="#contact">
+                    Contact
+                  </a>
+                </li>
               </ul>
             </div>
 
             <div>
               <p className="text-xs tracking-[0.22em] text-white/60">SOCIAL</p>
               <ul className="mt-3 space-y-2 text-sm">
-                <li><a className="text-white/75 hover:text-white" href="#" onClick={(e)=>e.preventDefault()}>Instagram</a></li>
-                <li><a className="text-white/75 hover:text-white" href="#" onClick={(e)=>e.preventDefault()}>TikTok</a></li>
-                <li><a className="text-white/75 hover:text-white" href="#" onClick={(e)=>e.preventDefault()}>YouTube</a></li>
+                <li>
+                  <a
+                    className="text-white/75 hover:text-white"
+                    href="https://www.instagram.com/rik_istudy?igsh=MWwxNzh4ZG95aWl0eQ%3D%3D&utm_source=qr"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Instagram
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="text-white/75 hover:text-white"
+                    href="https://www.facebook.com/share/1BYiDFmw85/?mibextid=wwXIfr"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Facebook
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col gap-2 border-t border-white/10 py-6 text-xs text-white/55 md:flex-row md:items-center md:justify-between">
-          <span>© {new Date().getFullYear()} Riky Studio. All rights reserved.</span>
+          <span>
+            © {new Date().getFullYear()} Riky Studio. All rights reserved.
+          </span>
           <span className="text-white/45">Built with React + Tailwind.</span>
         </div>
       </Container>
     </footer>
-  )
+  );
 }

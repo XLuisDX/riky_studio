@@ -10,6 +10,7 @@ import { WorkshopBanner } from "./components/WorkshopBanner"
 import { Testimonials } from "./components/Testimonials"
 import { Contact } from "./components/Contact"
 import { Footer } from "./components/Footer"
+import { ServiceArea } from "./components/ServiceArea";
 
 export default function App() {
   return (
@@ -19,10 +20,11 @@ export default function App() {
       <main>
         <Hero />
         <ImageGrid />
-        <Services />
         <About />
-        <HowWeWork />
+        <Services />
         <Portfolio />
+        <ServiceArea />
+        <HowWeWork />
         <Pricing />
         <WorkshopBanner />
         <Testimonials />
@@ -31,5 +33,5 @@ export default function App() {
 
       <Footer />
     </div>
-  )
+  );
 }

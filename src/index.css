@@ -18,3 +18,7 @@ body {
     ),
     #00122b;
 }
+
+html {
+  scroll-behavior: smooth;
+}

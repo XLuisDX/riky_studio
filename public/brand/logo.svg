@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Original" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #094a84;
+      }
+
+      .cls-2 {
+        fill: url(#Degradado_sin_nombre_25);
+      }
+
+      .cls-3 {
+        fill: url(#Degradado_sin_nombre_37);
+      }
+
+      .cls-4 {
+        fill: url(#Degradado_sin_nombre_18);
+      }
+
+      .cls-5 {
+        fill: url(#Degradado_sin_nombre_33);
+      }
+
+      .cls-6 {
+        fill: #00122b;
+      }
+    </style>
+    <linearGradient id="Degradado_sin_nombre_33" data-name="Degradado sin nombre 33" x1="454.89" y1="557.45" x2="674.82" y2="684.64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#155db5"/>
+      <stop offset="1" stop-color="#22b5ff"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_25" data-name="Degradado sin nombre 25" x1="391.03" y1="476.19" x2="685.23" y2="476.19" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22b5ff"/>
+      <stop offset=".93" stop-color="#155db5"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_18" data-name="Degradado sin nombre 18" x1="251.68" y1="705.25" x2="397.42" y2="336.93" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22b5ff"/>
+      <stop offset="1" stop-color="#155db5"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_37" data-name="Degradado sin nombre 37" x1="371.01" y1="281.9" x2="681.03" y2="410.41" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22b5ff"/>
+      <stop offset=".19" stop-color="#1e9eeb"/>
+      <stop offset=".54" stop-color="#197ace"/>
+      <stop offset=".82" stop-color="#1664bb"/>
+      <stop offset="1" stop-color="#155db5"/>
+    </linearGradient>
+  </defs>
+  <g id="Fondos-4" data-name="Fondos">
+    <rect id="_4-2" data-name="4" class="cls-6" x="0" width="1000" height="1000"/>
+  </g>
+  <g id="Isotipo-4" data-name="Isotipo">
+    <g id="Isotipo-5" data-name="Isotipo">
+      <polygon id="_4-3" data-name="4" class="cls-5" points="391.03 585.69 501.11 519.01 670.88 689.05 391.03 585.69"/>
+      <polygon id="_3-2" data-name="3" class="cls-2" points="473.22 366.7 391.03 585.69 685.23 407.48 473.22 366.7"/>
+      <polygon id="_2-2" data-name="2" class="cls-4" points="315.93 336.44 314.77 752.24 461.93 364.52 315.93 336.44"/>
+      <polygon id="_1-2" data-name="1" class="cls-3" points="475.32 247.76 685.23 407.48 315.93 336.44 475.32 247.76"/>
+      <polygon id="Sombra_3" data-name="Sombra 3" class="cls-1" points="391.03 585.69 530.96 548.9 501.11 519.01 391.03 585.69"/>
+      <polygon id="Sombra_2" data-name="Sombra 2" class="cls-1" points="473.22 366.7 454.95 415.39 685.23 407.48 473.22 366.7"/>
+      <polygon id="Sombra_1" data-name="Sombra 1" class="cls-1" points="314.77 336.44 443.37 413.43 461.93 364.52 314.77 336.44"/>
+    </g>
+  </g>
+</svg>
