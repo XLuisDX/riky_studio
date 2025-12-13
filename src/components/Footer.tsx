@@ -36,11 +36,11 @@ function FooterLink({
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/10 bg-prussian/40">
+    <footer className="relative border-t border-white/10 bg-prussian/40 overflow-hidden">
       {/* background wash */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-260px] bottom-[-220px] h-[640px] w-[640px] rounded-full bg-tech/10 blur-3xl" />
-        <div className="absolute right-[-260px] top-[-220px] h-[640px] w-[640px] rounded-full bg-sky/10 blur-3xl" />
+        <div className="absolute left-[-120px] bottom-[-220px] h-[640px] w-[640px] rounded-full bg-tech/10 blur-3xl md:left-[-260px]" />
+        <div className="absolute right-[-120px] top-[-220px] h-[640px] w-[640px] rounded-full bg-sky/10 blur-3xl md:right-[-260px]" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-prussian/35" />
       </div>
 
@@ -50,7 +50,7 @@ export function Footer() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="relative grid gap-10 py-12 md:grid-cols-12"
+          className="relative grid gap-8 py-12 md:grid-cols-12 md:gap-10"
         >
           {/* Brand */}
           <motion.div variants={fadeUp} className="md:col-span-4">
@@ -58,9 +58,9 @@ export function Footer() {
               href="#top"
               whileHover={{ y: -2 }}
               transition={{ duration: 0.2, ease: easeOut }}
-              className="flex items-center gap-3"
+              className="inline-flex items-center gap-3"
             >
-              <div className="h-11 w-11 rounded-xl border border-white/10 bg-white/5 p-0">
+              <div className="h-11 w-11 rounded-xl border border-white/10 bg-white/5 p-0 flex-shrink-0">
                 <BrandLogo className="h-full w-full object-contain" />
               </div>
 
@@ -74,7 +74,7 @@ export function Footer() {
               </div>
             </motion.a>
 
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
+            <p className="mt-4 text-sm leading-relaxed text-white/70">
               Premium ad videos, commercial photography, and digital signage
               setups for restaurants and local businesses.
             </p>
@@ -97,38 +97,41 @@ export function Footer() {
 
             <form
               onSubmit={(e) => e.preventDefault()}
-              className="mt-4 flex flex-col gap-3 sm:flex-row"
+              className="mt-4 flex flex-col gap-3"
             >
               <input
                 type="email"
                 required
                 placeholder="you@company.com"
-                className="w-full flex-1 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-sky/40 focus:ring-4 focus:ring-sky/10"
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-sky/40 focus:ring-4 focus:ring-sky/10"
               />
               <motion.button
                 type="submit"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2, ease: easeOut }}
-                className="rounded-2xl bg-sky px-6 py-3 text-sm font-semibold text-prussian hover:brightness-110 transition"
+                className="w-full rounded-2xl bg-sky px-6 py-3 text-sm font-semibold text-prussian hover:brightness-110 transition sm:w-auto"
               >
                 Subscribe
               </motion.button>
             </form>
 
             <p className="mt-3 text-xs text-white/50">
-              *Newsletter form can be wired later (Mailchimp/ConvertKit/etc.).
+              Newsletter form can be wired later (Mailchimp/ConvertKit/etc.).
             </p>
           </motion.div>
 
           {/* Links */}
           <motion.div
             variants={fadeUp}
-            className="grid gap-8 sm:grid-cols-2 md:col-span-3"
+            className="grid grid-cols-2 gap-8 md:col-span-3"
           >
             <div>
               <p className="text-xs tracking-[0.22em] text-white/60">PAGES</p>
               <ul className="mt-3 space-y-2 text-sm">
+                <li>
+                  <FooterLink href="#about">About</FooterLink>
+                </li>
                 <li>
                   <FooterLink href="#services">Services</FooterLink>
                 </li>
@@ -139,17 +142,24 @@ export function Footer() {
                   <FooterLink href="#pricing">Pricing</FooterLink>
                 </li>
                 <li>
-                  <FooterLink href="#workshop">Workshop</FooterLink>
-                </li>
-                <li>
                   <FooterLink href="#contact">Contact</FooterLink>
                 </li>
               </ul>
             </div>
 
             <div>
-              <p className="text-xs tracking-[0.22em] text-white/60">SOCIAL</p>
+              <p className="text-xs tracking-[0.22em] text-white/60">CONTACT</p>
               <ul className="mt-3 space-y-2 text-sm">
+                <li>
+                  <motion.a
+                    whileHover={{ x: 2 }}
+                    transition={{ duration: 0.18, ease: easeOut }}
+                    className="text-white/75 hover:text-white transition"
+                    href="tel:+18036790904"
+                  >
+                    (803) 679-0904
+                  </motion.a>
+                </li>
                 <li>
                   <motion.a
                     whileHover={{ x: 2 }}

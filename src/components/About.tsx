@@ -40,10 +40,10 @@ function Stat({
 
 export function About() {
   return (
-    <section id="about" className="relative py-14 md:py-18">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-260px] top-[40px] h-[560px] w-[560px] rounded-full bg-sky/10 blur-3xl" />
-        <div className="absolute right-[-260px] top-[-80px] h-[620px] w-[620px] rounded-full bg-tech/10 blur-3xl" />
+    <section id="about" className="relative py-14 md:py-18 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-120px] top-[40px] h-[560px] w-[560px] rounded-full bg-sky/10 blur-3xl md:left-[-260px]" />
+        <div className="absolute right-[-120px] top-[-80px] h-[620px] w-[620px] rounded-full bg-tech/10 blur-3xl md:right-[-260px]" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-prussian/25" />
       </div>
 

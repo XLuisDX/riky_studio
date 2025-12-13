@@ -40,7 +40,7 @@ const item: Variants = {
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-14">
+    <section className="relative overflow-hidden pt-6">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-[-160px] h-[520px] w-[880px] -translate-x-1/2 rounded-full bg-sky/12 blur-3xl" />
         <div className="absolute right-[-220px] top-[40px] h-[520px] w-[680px] rounded-full bg-tech/14 blur-3xl" />
