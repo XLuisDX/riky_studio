@@ -12,10 +12,10 @@ export function Navbar() {
 
   const navItems: NavItem[] = useMemo(
     () => [
-      { label: "Services", href: "#services" },
       { label: "About", href: "#about" },
-      { label: "Service Area", href: "#service-area" },
+      { label: "Services", href: "#services" },
       { label: "Portfolio", href: "#portfolio" },
+      { label: "Service Area", href: "#service-area" },
       { label: "Pricing", href: "#pricing" },
       { label: "Testimonials", href: "#testimonials" },
       { label: "Contact", href: "#contact" },
