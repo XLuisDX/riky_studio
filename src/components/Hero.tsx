@@ -147,7 +147,7 @@ export function Hero() {
                     className="rounded-2xl border border-white/10 bg-prussian/40 px-5 py-4 text-center"
                   >
                     <img
-                      src="../../public/home.png"
+                      src="/home.png"
                       alt="Showreel Preview"
                       className="h-full w-full object-cover"
                     />
