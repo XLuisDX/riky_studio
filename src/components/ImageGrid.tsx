@@ -51,24 +51,23 @@ function TileCard({
         isBig ? "md:col-span-7" : "",
       ].join(" ")}
     >
-      {/* top accent line */}
       <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-sky/35 to-transparent" />
 
-      <div className="relative aspect-[16/10]">
+      <div className="relative aspect-[16/10] overflow-hidden">
         {tile.img ? (
           <motion.img
             src={tile.img}
             alt={tile.title}
-            className="h-full w-full object-cover opacity-90"
+            className="absolute inset-0 h-full w-full object-cover object-center opacity-90"
             initial={{ scale: 1.02 }}
             whileHover={{ scale: 1.06 }}
             transition={{ duration: 0.7, ease: easeOut }}
+            draggable={false}
           />
         ) : (
-          <div className="h-full w-full bg-gradient-to-br from-white/10 to-white/0" />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0" />
         )}
 
-        {/* cinematic overlays */}
         <motion.div
           aria-hidden
           className="absolute inset-0"
@@ -81,7 +80,6 @@ function TileCard({
           }}
         />
 
-        {/* color sheen overlay */}
         <motion.div
           aria-hidden
           className="pointer-events-none absolute inset-0"
@@ -116,6 +114,7 @@ function TileCard({
           >
             {tile.title}
           </h3>
+
           <p className="mt-1 text-sm text-white/70">{tile.subtitle}</p>
 
           <motion.div

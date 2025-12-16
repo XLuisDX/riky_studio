@@ -1,7 +1,13 @@
-import { useEffect, useMemo, useState } from "react"
-import { Container } from "./Container"
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
+
+// Container component
+function Container({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
+  );
+}
 
 type Testimonial = {
   name: string;
@@ -14,38 +20,56 @@ const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const stagger: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
+  show: { transition: { staggerChildren: 0.1 } },
 };
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeOut } },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: easeOut } },
 };
 
 function StarRow({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-1">
       {Array.from({ length: 5 }).map((_, i) => (
-        <svg
+        <motion.svg
           key={i}
-          width="16"
-          height="16"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill={i < rating ? "currentColor" : "none"}
-          className={i < rating ? "text-sky" : "text-white/20"}
+          className={i < rating ? "text-sky-400" : "text-white/20"}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: i * 0.1, duration: 0.3 }}
         >
           <path
             d="M12 17.27l5.18 3.03-1.64-5.81L20 9.24l-5.9-.5L12 3.5 9.9 8.74 4 9.24l4.46 5.25-1.64 5.81L12 17.27z"
             stroke="currentColor"
-            strokeWidth="1.2"
+            strokeWidth="1.5"
           />
-        </svg>
+        </motion.svg>
       ))}
     </div>
   );
 }
 
-export function Testimonials() {
+// Quote Icon
+function QuoteIcon() {
+  return (
+    <svg
+      width="48"
+      height="48"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="text-sky-400/20"
+    >
+      <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
+    </svg>
+  );
+}
+
+export default function Testimonials() {
   const items: Testimonial[] = useMemo(
     () => [
       {
@@ -80,7 +104,7 @@ export function Testimonials() {
     const id = window.setInterval(() => {
       setDir(1);
       setIndex((i) => (i + 1) % items.length);
-    }, 6500);
+    }, 7000);
     return () => window.clearInterval(id);
   }, [items.length]);
 
@@ -97,11 +121,19 @@ export function Testimonials() {
   const active = items[index];
 
   return (
-    <section id="testimonials" className="relative py-14 md:py-18">
+    <section
+      id="testimonials"
+      className="relative py-20 md:py-28 overflow-hidden"
+    >
+      {/* Refined gradient background */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-260px] top-[-80px] h-[620px] w-[620px] rounded-full bg-sky/10 blur-3xl" />
-        <div className="absolute right-[-260px] bottom-[-140px] h-[620px] w-[620px] rounded-full bg-tech/10 blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-prussian/25" />
+        <div className="absolute left-[-300px] top-[-100px] h-[700px] w-[700px] rounded-full bg-sky-400/8 blur-[120px]" />
+        <div className="absolute right-[-300px] bottom-[-150px] h-[700px] w-[700px] rounded-full bg-blue-600/6 blur-[120px]" />
+
+        {/* Subtle grid overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_90%)]" />
+
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/30" />
       </div>
 
       <Container>
@@ -109,113 +141,185 @@ export function Testimonials() {
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.25 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           {/* Header */}
-          <motion.div
-            variants={fadeUp}
-            className="mb-8 grid gap-4 md:grid-cols-12 md:items-end"
-          >
-            <div className="md:col-span-7">
-              <p className="text-xs tracking-[0.22em] text-white/60">
-                TESTIMONIALS
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold text-white md:text-3xl">
-                Trusted by businesses that want a premium look.
-              </h2>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">
-                A few words from clients who needed better visuals and reliable
-                screen setups.
-              </p>
+          <motion.div variants={fadeUp} className="mb-16 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-1.5 mb-6">
+              <div className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+              <span className="text-[10px] font-medium tracking-[0.2em] text-white/70 uppercase">
+                Testimonials
+              </span>
             </div>
 
-            <div className="md:col-span-5 md:flex md:justify-end">
-              <motion.div
-                variants={fadeUp}
-                className="flex w-full gap-3 md:w-auto"
+            <h2 className="text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+              Trusted by businesses that want a{" "}
+              <span className="relative inline-block">
+                <span className="relative z-10 bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">
+                  premium look
+                </span>
+                <motion.span
+                  className="absolute inset-0 bg-sky-400/20 blur-xl"
+                  animate={{
+                    opacity: [0.3, 0.6, 0.3],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+              </span>
+            </h2>
+
+            <p className="mt-6 mx-auto max-w-2xl text-lg text-white/60">
+              A few words from clients who needed better visuals and reliable
+              screen setups.
+            </p>
+
+            {/* Navigation Buttons */}
+            <motion.div
+              variants={fadeUp}
+              className="mt-8 flex justify-center gap-3"
+            >
+              <motion.button
+                type="button"
+                onClick={prev}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2, ease: easeOut }}
+                className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm text-white hover:border-white/20 hover:bg-white/10 transition-all"
+                aria-label="Previous testimonial"
               >
-                <motion.button
-                  type="button"
-                  onClick={prev}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.2, ease: easeOut }}
-                  className="w-1/2 rounded-2xl border border-white/12 bg-white/5 px-4 py-3 text-sm font-semibold text-white/85 hover:bg-white/8 transition md:w-auto"
-                  aria-label="Previous testimonial"
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  ←
-                </motion.button>
-                <motion.button
-                  type="button"
-                  onClick={next}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.2, ease: easeOut }}
-                  className="w-1/2 rounded-2xl border border-white/12 bg-white/5 px-4 py-3 text-sm font-semibold text-white/85 hover:bg-white/8 transition md:w-auto"
-                  aria-label="Next testimonial"
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </motion.button>
+              <motion.button
+                type="button"
+                onClick={next}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2, ease: easeOut }}
+                className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm text-white hover:border-white/20 hover:bg-white/10 transition-all"
+                aria-label="Next testimonial"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  →
-                </motion.button>
-              </motion.div>
-            </div>
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </motion.button>
+            </motion.div>
           </motion.div>
 
+          {/* Testimonial Card */}
           <motion.div
             variants={fadeUp}
-            className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-soft"
+            className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl"
           >
-            <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-sky/35 to-transparent" />
+            {/* Top accent line */}
+            <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
 
-            <div
+            {/* Hover gradient overlay */}
+            <motion.div
               aria-hidden
-              className="pointer-events-none absolute inset-0 opacity-60"
+              className="pointer-events-none absolute inset-0 opacity-50 group-hover:opacity-70"
+              transition={{ duration: 0.4, ease: easeOut }}
               style={{
                 background:
-                  "radial-gradient(420px 260px at 20% 20%, rgba(34,181,255,0.14), transparent 60%), radial-gradient(520px 320px at 85% 85%, rgba(21,93,181,0.12), transparent 60%)",
+                  "radial-gradient(450px 350px at 25% 25%, rgba(56,189,248,0.12), transparent 70%), radial-gradient(550px 400px at 80% 80%, rgba(37,99,235,0.1), transparent 70%)",
               }}
             />
 
-            <div className="relative min-h-[280px] p-7 md:p-10">
+            <div className="relative min-h-[400px] p-10 md:p-14">
+              {/* Quote Icon Background */}
+              <div className="absolute top-8 right-8 opacity-50">
+                <QuoteIcon />
+              </div>
+
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={active.name}
-                  initial={{ opacity: 0, x: 28 * dir, filter: "blur(2px)" }}
+                  initial={{ opacity: 0, x: 40 * dir, filter: "blur(4px)" }}
                   animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, x: -28 * dir, filter: "blur(2px)" }}
-                  transition={{ duration: 0.45, ease: easeOut }}
+                  exit={{ opacity: 0, x: -40 * dir, filter: "blur(4px)" }}
+                  transition={{ duration: 0.5, ease: easeOut }}
+                  className="relative z-10"
                 >
                   <StarRow rating={active.rating} />
 
-                  <p className="mt-5 text-lg leading-relaxed text-white md:text-xl">
-                    “{active.quote}”
+                  <p className="mt-8 text-2xl leading-relaxed text-white md:text-3xl font-light">
+                    "{active.quote}"
                   </p>
 
-                  <div className="mt-6 h-px bg-white/10" />
+                  <div className="mt-10 h-px bg-gradient-to-r from-white/20 via-white/10 to-transparent" />
 
-                  <div className="mt-5 flex items-center justify-between gap-4">
-                    <div>
-                      <div className="text-sm font-semibold text-white">
-                        {active.name}
+                  <div className="mt-8 flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                      {/* Avatar */}
+                      <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-white/10 bg-gradient-to-br from-sky-400/20 to-blue-600/20 text-xl font-bold text-white backdrop-blur-sm">
+                        {active.name[0]}
                       </div>
-                      <div className="text-xs tracking-wide text-white/60">
-                        {active.role}
+
+                      <div>
+                        <div className="text-lg font-semibold text-white">
+                          {active.name}
+                        </div>
+                        <div className="text-sm text-white/60">
+                          {active.role}
+                        </div>
                       </div>
                     </div>
 
                     <motion.span
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.35, ease: easeOut }}
-                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] tracking-[0.22em] text-white/70"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4, ease: easeOut }}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 backdrop-blur-md px-4 py-2"
                     >
-                      VERIFIED
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        className="text-sky-400"
+                      >
+                        <path
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      <span className="text-xs font-medium tracking-wider text-white/80 uppercase">
+                        Verified
+                      </span>
                     </motion.span>
                   </div>
                 </motion.div>
               </AnimatePresence>
             </div>
 
-            <div className="absolute bottom-5 left-0 right-0 flex items-center justify-center gap-2">
+            {/* Dot Indicators */}
+            <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center gap-2">
               {items.map((_, i) => (
                 <motion.button
                   key={i}
@@ -225,18 +329,31 @@ export function Testimonials() {
                     setIndex(i);
                   }}
                   aria-label={`Go to testimonial ${i + 1}`}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
                   className={[
-                    "h-2.5 rounded-full transition",
+                    "rounded-full transition-all duration-300",
                     i === index
-                      ? "w-7 bg-sky"
-                      : "w-2.5 bg-white/25 hover:bg-white/40",
+                      ? "h-2.5 w-8 bg-gradient-to-r from-sky-400 to-blue-500"
+                      : "h-2.5 w-2.5 bg-white/25 hover:bg-white/40",
                   ].join(" ")}
                 />
               ))}
             </div>
 
-            <div className="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-sky/18 blur-3xl" />
+            {/* Floating glow accent */}
+            <motion.div
+              className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-sky-400/15 blur-3xl"
+              animate={{
+                opacity: [0.3, 0.5, 0.3],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
           </motion.div>
         </motion.div>
       </Container>

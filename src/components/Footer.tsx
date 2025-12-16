@@ -1,47 +1,103 @@
-import { Container } from "./Container";
-import { BrandLogo } from "./BrandLogo";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
+
+// Container component
+function Container({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
+  );
+}
+
+// Brand Logo Component
+function BrandLogo({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 100 100" fill="none">
+      <rect width="100" height="100" rx="20" fill="url(#gradient)" />
+      <path
+        d="M30 35h15l10 15 10-15h15v30h-10V45l-15 20-15-20v20H30V35z"
+        fill="white"
+      />
+      <defs>
+        <linearGradient id="gradient" x1="0" y1="0" x2="100" y2="100">
+          <stop offset="0%" stopColor="#38bdf8" />
+          <stop offset="100%" stopColor="#2563eb" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
 
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const stagger: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
+  show: { transition: { staggerChildren: 0.1 } },
 };
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeOut } },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: easeOut } },
 };
 
 function FooterLink({
   href,
   children,
+  external,
 }: {
   href: string;
   children: React.ReactNode;
+  external?: boolean;
 }) {
   return (
     <motion.a
       href={href}
-      whileHover={{ x: 2 }}
-      transition={{ duration: 0.18, ease: easeOut }}
-      className="text-white/75 hover:text-white transition"
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
+      whileHover={{ x: 3 }}
+      transition={{ duration: 0.2, ease: easeOut }}
+      className="flex items-center gap-2 text-white/70 hover:text-sky-400 transition"
     >
       {children}
+      {external && (
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          <polyline points="15 3 21 3 21 9" />
+          <line x1="10" y1="14" x2="21" y2="3" />
+        </svg>
+      )}
     </motion.a>
   );
 }
 
-export function Footer() {
+export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+
+  function handleSubscribe() {
+    setSubscribed(true);
+    setTimeout(() => setSubscribed(false), 3000);
+  }
+
   return (
-    <footer className="relative border-t border-white/10 bg-prussian/40 overflow-hidden">
-      {/* background wash */}
+    <footer className="relative border-t border-white/10 overflow-hidden">
+      {/* Refined gradient background */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-120px] bottom-[-220px] h-[640px] w-[640px] rounded-full bg-tech/10 blur-3xl md:left-[-260px]" />
-        <div className="absolute right-[-120px] top-[-220px] h-[640px] w-[640px] rounded-full bg-sky/10 blur-3xl md:right-[-260px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-prussian/35" />
+        <div className="absolute left-[-300px] bottom-[-250px] h-[700px] w-[700px] rounded-full bg-blue-600/6 blur-[120px]" />
+        <div className="absolute right-[-300px] top-[-250px] h-[700px] w-[700px] rounded-full bg-sky-400/6 blur-[120px]" />
+
+        {/* Subtle grid overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_90%)]" />
+
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-950/50" />
       </div>
 
       <Container>
@@ -50,85 +106,153 @@ export function Footer() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="relative grid gap-8 py-12 md:grid-cols-12 md:gap-10"
+          className="relative grid gap-12 py-16 md:py-20 lg:grid-cols-12 lg:gap-16"
         >
-          {/* Brand */}
-          <motion.div variants={fadeUp} className="md:col-span-4">
+          {/* Brand & Description */}
+          <motion.div variants={fadeUp} className="lg:col-span-4">
             <motion.a
               href="#top"
-              whileHover={{ y: -2 }}
-              transition={{ duration: 0.2, ease: easeOut }}
-              className="inline-flex items-center gap-3"
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.3, ease: easeOut }}
+              className="group inline-flex items-center gap-4"
             >
-              <div className="h-11 w-11 rounded-xl border border-white/10 bg-white/5 p-0 flex-shrink-0">
+              <div className="relative h-14 w-14 rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-2 flex-shrink-0">
                 <BrandLogo className="h-full w-full object-contain" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-sky-400/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
 
               <div className="leading-tight">
-                <div className="text-sm font-semibold tracking-wide text-white">
-                  Riky Studio
-                </div>
-                <div className="text-[11px] tracking-[0.22em] text-white/60">
-                  VIDEO EDITING
+                <div className="text-xl font-bold text-white">Riky Studio</div>
+                <div className="text-[10px] font-medium tracking-[0.25em] text-sky-400 uppercase">
+                  Video Editing
                 </div>
               </div>
             </motion.a>
 
-            <p className="mt-4 text-sm leading-relaxed text-white/70">
+            <p className="mt-6 text-base leading-relaxed text-white/60">
               Premium ad videos, commercial photography, and digital signage
               setups for restaurants and local businesses.
             </p>
 
-            {/* subtle divider */}
-            <div className="mt-6 h-px w-28 bg-gradient-to-r from-sky/40 via-white/10 to-transparent" />
+            {/* Social Links */}
+            <div className="mt-8 flex items-center gap-4">
+              <motion.a
+                href="https://www.instagram.com/rik_istudy?igsh=MWwxNzh4ZG95aWl0eQ%3D%3D&utm_source=qr"
+                target="_blank"
+                rel="noreferrer"
+                whileHover={{ y: -4, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm text-white/70 hover:text-sky-400 hover:border-sky-400/30 transition-all"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </motion.a>
+
+              <motion.a
+                href="https://www.facebook.com/share/1BYiDFmw85/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noreferrer"
+                whileHover={{ y: -4, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm text-white/70 hover:text-sky-400 hover:border-sky-400/30 transition-all"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </motion.a>
+            </div>
+
+            {/* Subtle divider */}
+            <div className="mt-8 h-px w-32 bg-gradient-to-r from-sky-400/40 via-white/10 to-transparent" />
           </motion.div>
 
           {/* Newsletter */}
-          <motion.div variants={fadeUp} className="md:col-span-5">
-            <p className="text-xs tracking-[0.22em] text-white/60">
-              NEWSLETTER
-            </p>
-            <h3 className="mt-2 text-lg font-semibold text-white">
-              Get occasional tips & offers.
+          <motion.div variants={fadeUp} className="lg:col-span-5">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-1.5 mb-4">
+              <div className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+              <span className="text-[10px] font-medium tracking-[0.2em] text-white/70 uppercase">
+                Newsletter
+              </span>
+            </div>
+
+            <h3 className="text-2xl font-bold text-white">
+              Get occasional tips{" "}
+              <span className="relative inline-block">
+                <span className="relative z-10 bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">
+                  & offers
+                </span>
+              </span>
             </h3>
-            <p className="mt-2 text-sm text-white/70">
+
+            <p className="mt-3 text-base text-white/60">
               No spam. Just practical content and updates.
             </p>
 
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="mt-4 flex flex-col gap-3"
-            >
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <input
                 type="email"
-                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
-                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-sky/40 focus:ring-4 focus:ring-sky/10"
+                className="flex-1 rounded-2xl border border-white/10 bg-slate-950/50 backdrop-blur-sm px-5 py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-sky-400/50 focus:ring-4 focus:ring-sky-400/10"
               />
               <motion.button
-                type="submit"
-                whileHover={{ y: -2 }}
+                onClick={handleSubscribe}
+                whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2, ease: easeOut }}
-                className="w-full rounded-2xl bg-sky px-6 py-3 text-sm font-semibold text-prussian hover:brightness-110 transition sm:w-auto"
+                className="group relative overflow-hidden rounded-2xl bg-sky-400 px-8 py-4 text-base font-semibold text-slate-950 shadow-lg shadow-sky-400/25 sm:w-auto"
               >
-                Subscribe
+                <span className="relative z-10">
+                  {subscribed ? "Subscribed! ✓" : "Subscribe"}
+                </span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-sky-300 to-blue-400"
+                  initial={{ x: "100%" }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
               </motion.button>
-            </form>
+            </div>
 
-            <p className="mt-3 text-xs text-white/50">
-              Newsletter form can be wired later (Mailchimp/ConvertKit/etc.).
+            <p className="mt-4 text-sm text-white/50">
+              💡 Newsletter form can be wired later (Mailchimp/ConvertKit/etc.)
             </p>
           </motion.div>
 
           {/* Links */}
           <motion.div
             variants={fadeUp}
-            className="grid grid-cols-2 gap-8 md:col-span-3"
+            className="grid grid-cols-2 gap-10 lg:col-span-3"
           >
             <div>
-              <p className="text-xs tracking-[0.22em] text-white/60">PAGES</p>
-              <ul className="mt-3 space-y-2 text-sm">
+              <p className="text-xs font-medium tracking-[0.2em] text-sky-400 uppercase mb-4">
+                Pages
+              </p>
+              <ul className="space-y-3 text-base">
                 <li>
                   <FooterLink href="#about">About</FooterLink>
                 </li>
@@ -148,60 +272,80 @@ export function Footer() {
             </div>
 
             <div>
-              <p className="text-xs tracking-[0.22em] text-white/60">CONTACT</p>
-              <ul className="mt-3 space-y-2 text-sm">
+              <p className="text-xs font-medium tracking-[0.2em] text-sky-400 uppercase mb-4">
+                Contact
+              </p>
+              <ul className="space-y-3 text-base">
                 <li>
-                  <motion.a
-                    whileHover={{ x: 2 }}
-                    transition={{ duration: 0.18, ease: easeOut }}
-                    className="text-white/75 hover:text-white transition"
-                    href="tel:+18036790904"
-                  >
+                  <FooterLink href="tel:+18036790904">
                     (803) 679-0904
-                  </motion.a>
+                  </FooterLink>
                 </li>
                 <li>
-                  <motion.a
-                    whileHover={{ x: 2 }}
-                    transition={{ duration: 0.18, ease: easeOut }}
-                    className="text-white/75 hover:text-white transition"
+                  <FooterLink href="tel:+18033410956">
+                    (803) 341-0956
+                  </FooterLink>
+                </li>
+                <li>
+                  <FooterLink
                     href="https://www.instagram.com/rik_istudy?igsh=MWwxNzh4ZG95aWl0eQ%3D%3D&utm_source=qr"
-                    target="_blank"
-                    rel="noreferrer"
+                    external
                   >
                     Instagram
-                  </motion.a>
+                  </FooterLink>
                 </li>
                 <li>
-                  <motion.a
-                    whileHover={{ x: 2 }}
-                    transition={{ duration: 0.18, ease: easeOut }}
-                    className="text-white/75 hover:text-white transition"
+                  <FooterLink
                     href="https://www.facebook.com/share/1BYiDFmw85/?mibextid=wwXIfr"
-                    target="_blank"
-                    rel="noreferrer"
+                    external
                   >
                     Facebook
-                  </motion.a>
+                  </FooterLink>
                 </li>
               </ul>
             </div>
           </motion.div>
         </motion.div>
 
+        {/* Bottom Bar */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: easeOut }}
-          className="relative flex flex-col gap-2 border-t border-white/10 py-6 text-xs text-white/55 md:flex-row md:items-center md:justify-between"
+          transition={{ duration: 0.8, ease: easeOut }}
+          className="relative flex flex-col gap-4 border-t border-white/10 py-8 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between"
         >
           <span>
             © {new Date().getFullYear()} Riky Studio. All rights reserved.
           </span>
-          <span className="text-white/45">Built with React + Tailwind.</span>
+          <div className="flex items-center gap-6">
+            <span className="text-white/40">Built with React + Tailwind</span>
+            <motion.a
+              href="#top"
+              whileHover={{ y: -2 }}
+              transition={{ duration: 0.2 }}
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm text-white/70 hover:text-sky-400 hover:border-sky-400/30 transition-all"
+              aria-label="Back to top"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 15l-6-6-6 6" />
+              </svg>
+            </motion.a>
+          </div>
         </motion.div>
       </Container>
     </footer>
   );
 }
+
+// Don't forget useState import
+import { useState } from "react";

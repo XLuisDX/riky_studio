@@ -1,17 +1,18 @@
 import { Navbar } from "./components/Navbar"
-import { Hero } from "./components/Hero"
-import { ImageGrid } from "./components/ImageGrid"
-import { Services } from "./components/Services"
-import { About } from "./components/About"
-import { HowWeWork } from "./components/HowWeWork"
-import { Portfolio } from "./components/Portfolio"
-import { Pricing } from "./components/Pricing"
-import { WorkshopBanner } from "./components/WorkshopBanner"
-import { Testimonials } from "./components/Testimonials"
-import { Contact } from "./components/Contact"
-import { Footer } from "./components/Footer"
-import { ServiceArea } from "./components/ServiceArea";
+// import { ImageGrid } from "./components/ImageGrid"
+
 import { ScrollToTop } from "./components/ScrollToTop";
+import About from "./components/About"
+import Hero from "./components/Hero"
+import Services from "./components/Services"
+import Portfolio from "./components/Portfolio"
+import ServiceArea from "./components/ServiceArea"
+import HowWeWork from "./components/HowWeWork"
+import Pricing from "./components/Pricing"
+import WorkshopBanner from "./components/WorkshopBanner";
+import Testimonials from "./components/Testimonials";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
@@ -30,7 +31,7 @@ export default function App() {
 
       <main>
         <Hero />
-        <ImageGrid />
+        {/* <ImageGrid /> */}
         <About />
         <Services />
         <Portfolio />
