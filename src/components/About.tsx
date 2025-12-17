@@ -22,32 +22,6 @@ const fadeUp: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: easeOut } },
 };
 
-function Stat({
-  value,
-  label,
-  delay = 0,
-}: {
-  value: string;
-  label: string;
-  delay?: number;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.4 }}
-      transition={{ duration: 0.5, delay, ease: easeOut }}
-      className="group relative"
-    >
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-sky-400/10 via-transparent to-blue-600/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-      <div className="relative rounded-2xl border border-white/8 bg-white/3 backdrop-blur-sm px-5 py-4 transition-all duration-300 group-hover:border-white/15 group-hover:bg-white/5">
-        <div className="text-xl font-semibold text-white tracking-tight">{value}</div>
-        <div className="mt-1 text-xs text-white/50 uppercase tracking-wider">{label}</div>
-      </div>
-    </motion.div>
-  );
-}
-
 export default function About() {
   return (
     <section id="about" className="relative py-20 md:py-28 overflow-hidden">
@@ -55,10 +29,10 @@ export default function About() {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute left-[-200px] top-[100px] h-[600px] w-[600px] rounded-full bg-sky-400/8 blur-[120px] md:left-[-300px]" />
         <div className="absolute right-[-200px] top-[-100px] h-[700px] w-[700px] rounded-full bg-blue-600/6 blur-[120px] md:right-[-300px]" />
-        
+
         {/* Subtle grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_90%)]" />
-        
+
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/30" />
       </div>
 
@@ -93,9 +67,9 @@ export default function About() {
 
                 {/* Sophisticated overlays */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
-                
+
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-transparent" />
-                
+
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-slate-950 via-slate-950/85 to-transparent" />
 
                 {/* Animated gradient overlay on hover */}
@@ -223,19 +197,7 @@ export default function About() {
               design, and a consistent brand look across every screen.
             </motion.p>
 
-            <motion.div
-              variants={fadeUp}
-              className="mt-8 grid grid-cols-3 gap-4"
-            >
-              <Stat value="48–72h" label="Turnaround" delay={0.1} />
-              <Stat value="4K" label="Ready" delay={0.15} />
-              <Stat value="Full" label="Service" delay={0.2} />
-            </motion.div>
-
-            <motion.div
-              variants={fadeUp}
-              className="mt-8 flex flex-wrap gap-4"
-            >
+            <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-4">
               <motion.a
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}

@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import Lottie from "lottie-react";
 
-// Container component
 function Container({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
@@ -163,7 +162,7 @@ export default function Hero() {
 
             <motion.div
               variants={item}
-              className="mt-12 grid grid-cols-3 gap-4"
+              className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-3"
             >
               <Stat value="48–72h" label="Turnaround" delay={0.1} />
               <Stat value="4K" label="Delivery" delay={0.15} />

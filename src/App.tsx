@@ -1,7 +1,6 @@
 import { Navbar } from "./components/Navbar"
 // import { ImageGrid } from "./components/ImageGrid"
 
-import { ScrollToTop } from "./components/ScrollToTop";
 import About from "./components/About"
 import Hero from "./components/Hero"
 import Services from "./components/Services"
@@ -13,6 +12,7 @@ import WorkshopBanner from "./components/WorkshopBanner";
 import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   return (

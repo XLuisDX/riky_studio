@@ -8,25 +8,6 @@ function Container({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Brand Logo Component
-function BrandLogo({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 100 100" fill="none">
-      <rect width="100" height="100" rx="20" fill="url(#gradient)" />
-      <path
-        d="M30 35h15l10 15 10-15h15v30h-10V45l-15 20-15-20v20H30V35z"
-        fill="white"
-      />
-      <defs>
-        <linearGradient id="gradient" x1="0" y1="0" x2="100" y2="100">
-          <stop offset="0%" stopColor="#38bdf8" />
-          <stop offset="100%" stopColor="#2563eb" />
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}
-
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const stagger: Variants = {
@@ -116,7 +97,7 @@ export default function Footer() {
               transition={{ duration: 0.3, ease: easeOut }}
               className="group inline-flex items-center gap-4"
             >
-              <div className="relative h-14 w-14 rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-2 flex-shrink-0">
+              <div className="relative h-14 w-14 rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-0 flex-shrink-0">
                 <BrandLogo className="h-full w-full object-contain" />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-sky-400/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
@@ -349,3 +330,5 @@ export default function Footer() {
 
 // Don't forget useState import
 import { useState } from "react";
+import { BrandLogo } from "./BrandLogo";
+
