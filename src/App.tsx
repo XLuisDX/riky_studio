@@ -1,18 +1,18 @@
-import { Navbar } from "./components/Navbar"
 // import { ImageGrid } from "./components/ImageGrid"
 
-import About from "./components/About"
-import Hero from "./components/Hero"
-import Services from "./components/Services"
-import Portfolio from "./components/Portfolio"
-import ServiceArea from "./components/ServiceArea"
-import HowWeWork from "./components/HowWeWork"
+import About from "./components/About";
+import Hero from "./components/Hero";
+import Services from "./components/Services";
+import Portfolio from "./components/Portfolio";
+import ServiceArea from "./components/ServiceArea";
+import HowWeWork from "./components/HowWeWork";
 // import Pricing from "./components/Pricing"
 // import WorkshopBanner from "./components/WorkshopBanner";
 import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import Navbar from "./components/Navbar";
 
 export default function App() {
   return (

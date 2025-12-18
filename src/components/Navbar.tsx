@@ -1,14 +1,21 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Container } from "./Container";
-import { BrandLogo } from "./BrandLogo";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { BrandLogo } from "./BrandLogo";
+
+// Container component
+function Container({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
+  );
+}
 
 type NavItem = { label: string; href: string };
 
-export function Navbar() {
+const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const servicesRef = useRef<HTMLDivElement | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
 
   const navItems: NavItem[] = useMemo(
@@ -16,35 +23,21 @@ export function Navbar() {
       { label: "About", href: "#about" },
       { label: "Services", href: "#services" },
       { label: "Portfolio", href: "#portfolio" },
+      { label: "Testimonials", href: "#testimonials" },
       { label: "Contact", href: "#contact" },
     ],
     []
   );
 
-  const services = useMemo(
-    () => [
-      "Ad Video Production",
-      "Commercial & Food Photography",
-      "Digital Signage Screen Installation",
-      "Media Player Setup for Advertising",
-      "Content Design for Digital Screens",
-    ],
-    []
-  );
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
-    const ids = [
-      "services",
-      "about",
-      "service-area",
-      "how-we-work",
-      "portfolio",
-      "pricing",
-      "workshop",
-      "testimonials",
-      "contact",
-    ];
-
+    const ids = ["services", "about", "portfolio", "testimonials", "contact"];
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
@@ -58,13 +51,12 @@ export function Navbar() {
           .sort(
             (a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0)
           )[0];
-
         if (visible?.target?.id) setActiveSection(visible.target.id);
       },
       {
         root: null,
         rootMargin: "-30% 0px -55% 0px",
-        threshold: [0.1, 0.2, 0.35, 0.5, 0.65],
+        threshold: [0.1, 0.3, 0.5],
       }
     );
 
@@ -72,248 +64,195 @@ export function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    function onClickOutside(e: MouseEvent) {
-      if (!servicesRef.current) return;
-      if (!servicesRef.current.contains(e.target as Node))
-        setServicesOpen(false);
-    }
-    window.addEventListener("mousedown", onClickOutside);
-    return () => window.removeEventListener("mousedown", onClickOutside);
-  }, []);
-
-  function closeAllMenus() {
-    setServicesOpen(false);
-    setMobileOpen(false);
-  }
-
-  function navLinkClass(href: string) {
-    const id = href.startsWith("#") ? href.slice(1) : "";
-    const isActive = id && id === activeSection;
-
-    return [
-      "relative text-sm transition",
-      isActive ? "text-white" : "text-white/80 hover:text-white",
-    ].join(" ");
-  }
-
-  const dropdownAnim = {
-    hidden: { opacity: 0, y: 8, scale: 0.98 },
-    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.22 } },
-    exit: { opacity: 0, y: 8, scale: 0.98, transition: { duration: 0.18 } },
-  };
-
-  const mobileAnim = {
-    hidden: { opacity: 0, height: 0 },
-    show: { opacity: 1, height: "auto", transition: { duration: 0.25 } },
-    exit: { opacity: 0, height: 0, transition: { duration: 0.2 } },
-  };
-
   return (
-    <>
-      <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/10 bg-prussian/95 backdrop-blur-lg">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky/40 to-transparent" />
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: easeOut }}
+      className={[
+        "fixed top-4 left-4 right-4 z-[100] rounded-3xl border transition-all duration-500",
+        // ✅ Más “cristal”: menos opaco + blur + saturate
+        scrolled
+          ? "border-white/12 bg-slate-950/55 backdrop-blur-2xl shadow-2xl shadow-black/25 backdrop-saturate-150"
+          : "border-white/8 bg-slate-950/35 backdrop-blur-xl backdrop-saturate-150",
+      ].join(" ")}
+    >
+      {/* Top glow line */}
+      <div className="pointer-events-none absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" />
 
-        <Container>
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="flex h-16 items-center justify-between"
+      {/* ✅ Glass highlight (shine) */}
+      <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-b from-white/10 via-white/5 to-transparent opacity-60" />
+
+      {/* Animated background orbs */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 rounded-3xl opacity-30"
+        animate={{
+          background: [
+            "radial-gradient(600px 200px at 20% 50%, rgba(56,189,248,0.10), transparent 55%)",
+            "radial-gradient(600px 200px at 80% 50%, rgba(37,99,235,0.10), transparent 55%)",
+            "radial-gradient(600px 200px at 20% 50%, rgba(56,189,248,0.10), transparent 55%)",
+          ],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <Container>
+        <div className="flex h-16 sm:h-18 items-center justify-between">
+          {/* Logo */}
+          <motion.a
+            href="#top"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="group relative flex items-center gap-3 z-10"
           >
-            <a href="#top" className="group flex items-center gap-3">
+            <div className="relative">
               <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.15 }}
-                className="relative h-12 w-12 overflow-hidden rounded-xl border border-white/10 bg-white/5 p-0"
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.6, ease: easeOut }}
+                className="h-11 w-11 rounded-2xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-0 overflow-hidden"
               >
                 <BrandLogo className="h-full w-full object-contain" />
-
-                <motion.div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100"
-                  initial={false}
-                  animate={{}}
-                  transition={{ duration: 0.2 }}
-                  style={{
-                    background:
-                      "radial-gradient(120px 80px at 20% 15%, rgba(34,181,255,0.22), transparent 60%), radial-gradient(160px 120px at 80% 90%, rgba(21,93,181,0.18), transparent 60%)",
-                  }}
-                />
               </motion.div>
 
-              <div className="leading-tight">
-                <div className="text-sm font-semibold tracking-wide text-white">
-                  Riky Studio
-                </div>
-                <div className="text-[11px] tracking-[0.22em] text-white/60">
-                  VIDEO EDITING
-                </div>
-              </div>
-            </a>
+              {/* Spinning ring on hover */}
+              <motion.div
+                className="absolute inset-0 rounded-2xl border-2 border-sky-400/40"
+                initial={{ rotate: 0, scale: 1, opacity: 0 }}
+                whileHover={{ rotate: 360, scale: 1.2, opacity: 1 }}
+                transition={{ duration: 0.6, ease: easeOut }}
+              />
+            </div>
 
-            <nav className="hidden items-center gap-7 md:flex">
-              <div className="relative" ref={servicesRef}>
-                <motion.button
-                  whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setServicesOpen((v) => !v)}
-                  className="text-sm text-white/80 hover:text-white transition"
-                  aria-expanded={servicesOpen}
-                  aria-haspopup="menu"
-                  type="button"
+            {/* ✅ Desktop text (igual que antes) */}
+            <div className="hidden sm:block leading-tight">
+              <div className="text-base font-bold text-white group-hover:text-sky-400 transition-colors">
+                Riky Studio
+              </div>
+              <div className="text-[9px] font-semibold tracking-[0.3em] text-white/50 uppercase">
+                Video • Photo • Screens
+              </div>
+            </div>
+
+            {/* ✅ Mobile name next to icon */}
+            <div className="sm:hidden flex items-center">
+              <span className="text-sm font-bold text-white/95 group-hover:text-sky-400 transition-colors">
+                Riky Studio
+              </span>
+            </div>
+          </motion.a>
+
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {navItems.map((item) => {
+              const id = item.href.slice(1);
+              const isActive = id === activeSection;
+
+              return (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={[
+                    "relative px-4 py-2 rounded-xl text-sm font-medium transition-all",
+                    isActive
+                      ? "text-white"
+                      : "text-white/70 hover:text-white hover:bg-white/5",
+                  ].join(" ")}
                 >
-                  Services <span className="text-white/40">▾</span>
-                </motion.button>
+                  <span className="relative z-10">{item.label}</span>
+                </motion.a>
+              );
+            })}
+          </nav>
 
-                <AnimatePresence>
-                  {servicesOpen && (
-                    <motion.div
-                      role="menu"
-                      variants={dropdownAnim}
-                      initial="hidden"
-                      animate="show"
-                      exit="exit"
-                      className="absolute left-0 mt-3 w-[360px] overflow-hidden rounded-2xl border border-white/10 bg-[#071a35] shadow-soft"
-                    >
-                      <div className="h-px bg-gradient-to-r from-transparent via-sky/35 to-transparent" />
-                      <div className="p-2">
-                        {services.map((s) => (
-                          <motion.a
-                            key={s}
-                            href="#services"
-                            role="menuitem"
-                            onClick={closeAllMenus}
-                            whileHover={{ x: 3 }}
-                            transition={{ duration: 0.12 }}
-                            className="block rounded-xl px-3 py-2 text-sm text-white/80 hover:bg-white/5 hover:text-white transition"
-                          >
-                            {s}
-                          </motion.a>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+          {/* CTA Buttons */}
+          <div className="hidden lg:flex items-center gap-3">
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative overflow-hidden px-6 py-2.5 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 text-sm font-bold text-white shadow-lg shadow-sky-400/25"
+            >
+              <span className="relative z-10">Get Started</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-sky-300 to-blue-400"
+                initial={{ x: "100%" }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.a>
+          </div>
 
-              {navItems.map((item) => {
-                const id = item.href.startsWith("#") ? item.href.slice(1) : "";
-                const isActive = id && id === activeSection;
+          {/* Mobile Menu Button */}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setMobileOpen((v) => !v)}
+            className="lg:hidden relative h-10 w-10 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center"
+          >
+            <motion.div
+              animate={mobileOpen ? "open" : "closed"}
+              className="flex flex-col gap-1.5"
+            >
+              <motion.span
+                variants={{
+                  closed: { rotate: 0, y: 0 },
+                  open: { rotate: 45, y: 6 },
+                }}
+                className="w-5 h-0.5 bg-white rounded-full"
+              />
+              <motion.span
+                variants={{
+                  closed: { opacity: 1 },
+                  open: { opacity: 0 },
+                }}
+                className="w-5 h-0.5 bg-white rounded-full"
+              />
+              <motion.span
+                variants={{
+                  closed: { rotate: 0, y: 0 },
+                  open: { rotate: -45, y: -6 },
+                }}
+                className="w-5 h-0.5 bg-white rounded-full"
+              />
+            </motion.div>
+          </motion.button>
+        </div>
 
-                return (
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: easeOut }}
+              className="lg:hidden overflow-hidden"
+            >
+              <div className="py-4 space-y-2 border-t border-white/10">
+                {navItems.map((item) => (
                   <a
                     key={item.href}
                     href={item.href}
-                    className={navLinkClass(item.href)}
+                    className="block px-4 py-3 rounded-xl text-sm font-medium text-white/80 hover:bg-white/5 hover:text-white transition-colors"
                   >
                     {item.label}
-                    <motion.span
-                      aria-hidden
-                      className="absolute -bottom-2 left-0 right-0 mx-auto h-px w-0 bg-gradient-to-r from-tech/0 via-sky to-tech/0"
-                      animate={{ width: isActive ? "100%" : "0%" }}
-                      transition={{ duration: 0.25 }}
-                    />
                   </a>
-                );
-              })}
+                ))}
 
-              <div className="flex items-center gap-3">
-                <motion.a
-                  whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.98 }}
-                  href="#contact"
-                  className="rounded-2xl bg-sky px-4 py-2 text-sm font-semibold text-prussian hover:brightness-110 transition"
-                >
-                  Get a Quote
-                </motion.a>
-              </div>
-            </nav>
-
-            <motion.button
-              whileTap={{ scale: 0.96 }}
-              className="md:hidden rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/90"
-              onClick={() => setMobileOpen((v) => !v)}
-              aria-expanded={mobileOpen}
-              aria-label="Open menu"
-              type="button"
-            >
-              ☰
-            </motion.button>
-          </motion.div>
-
-          <AnimatePresence>
-            {mobileOpen && (
-              <motion.div
-                variants={mobileAnim}
-                initial="hidden"
-                animate="show"
-                exit="exit"
-                className="md:hidden pb-4"
-              >
-                <div className="mt-2 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
-                  <div className="h-px bg-gradient-to-r from-transparent via-sky/35 to-transparent" />
-
-                  <div className="p-3">
-                    <a
-                      href="#services"
-                      className="block rounded-xl px-3 py-2 text-sm text-white/80 hover:bg-white/5 hover:text-white"
-                      onClick={closeAllMenus}
-                    >
-                      Services
-                    </a>
-
-                    <div className="ml-2 mt-1 space-y-1">
-                      {services.map((s) => (
-                        <a
-                          key={s}
-                          href="#services"
-                          className="block rounded-xl px-3 py-2 text-sm text-white/60 hover:bg-white/5 hover:text-white"
-                          onClick={closeAllMenus}
-                        >
-                          {s}
-                        </a>
-                      ))}
-                    </div>
-
-                    <div className="mt-2 h-px bg-white/10" />
-
-                    {navItems.map((item) => (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        className="block rounded-xl px-3 py-2 text-sm text-white/80 hover:bg-white/5 hover:text-white"
-                        onClick={closeAllMenus}
-                      >
-                        {item.label}
-                      </a>
-                    ))}
-
-                    <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                      <a
-                        href="#contact"
-                        className="block rounded-xl bg-sky px-4 py-2 text-center text-sm font-semibold text-prussian hover:brightness-110 transition"
-                        onClick={closeAllMenus}
-                      >
-                        Get a Quote
-                      </a>
-
-                      <a
-                        href="tel:+18036790904"
-                        className="block rounded-xl border border-white/12 bg-white/5 px-4 py-2 text-center text-sm font-semibold text-white/90 hover:bg-white/8 transition"
-                        onClick={closeAllMenus}
-                      >
-                        Book a Call
-                      </a>
-                    </div>
-                  </div>
+                <div className="pt-3 px-3 grid gap-3">
+                  <a
+                    href="#contact"
+                    className="block px-5 py-3 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 text-center text-sm font-bold text-white shadow-lg shadow-sky-400/25"
+                  >
+                    Get Started
+                  </a>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Container>
-      </header>
-    </>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Container>
+    </motion.header>
   );
 }

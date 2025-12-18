@@ -83,7 +83,7 @@ export default function Hero() {
       </div>
 
       <Container>
-        <div className="relative grid items-center gap-16 py-20 md:grid-cols-2 md:py-24 lg:gap-20">
+        <div className="relative grid items-center gap-16 py-20 md:grid-cols-2 md:py-24 lg:gap-20 mt-6 md:mt-0">
           <motion.div
             variants={stagger}
             initial="hidden"
