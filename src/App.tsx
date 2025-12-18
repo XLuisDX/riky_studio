@@ -7,8 +7,8 @@ import Services from "./components/Services"
 import Portfolio from "./components/Portfolio"
 import ServiceArea from "./components/ServiceArea"
 import HowWeWork from "./components/HowWeWork"
-import Pricing from "./components/Pricing"
-import WorkshopBanner from "./components/WorkshopBanner";
+// import Pricing from "./components/Pricing"
+// import WorkshopBanner from "./components/WorkshopBanner";
 import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -37,8 +37,8 @@ export default function App() {
         <Portfolio />
         <ServiceArea />
         <HowWeWork />
-        <Pricing />
-        <WorkshopBanner />
+        {/* <Pricing /> */}
+        {/* <WorkshopBanner /> */}
         <Testimonials />
         <Contact />
       </main>

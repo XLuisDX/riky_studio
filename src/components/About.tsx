@@ -55,7 +55,7 @@ export default function About() {
 
               <div className="relative aspect-[4/3] overflow-hidden">
                 <motion.img
-                  src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&h=600&fit=crop"
+                  src="/img2.png"
                   alt="Riky Studio behind the scenes"
                   className="h-full w-full object-cover"
                   initial={{ scale: 1.05 }}
@@ -143,7 +143,7 @@ export default function About() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
-            className="relative z-10"
+            className="relative z-10 text-center md:text-left"
           >
             <motion.div
               variants={fadeUp}
@@ -157,7 +157,7 @@ export default function About() {
 
             <motion.h2
               variants={fadeUp}
-              className="mt-6 text-4xl font-bold leading-tight text-white md:text-5xl"
+              className="mt-6 text-4xl font-bold leading-tight text-white md:text-5xl text-center md:text-left"
             >
               A studio built for{" "}
               <span className="relative inline-block">
@@ -176,12 +176,12 @@ export default function About() {
                   }}
                 />
               </span>{" "}
-              and local businesses.
+              and local businesses
             </motion.h2>
 
             <motion.p
               variants={fadeUp}
-              className="mt-6 text-base leading-relaxed text-white/60"
+              className="mt-6 text-base leading-relaxed text-white/60 text-center md:text-left"
             >
               Riky Studio helps you promote smarter—online and in-store. We
               produce video ads, commercial photography, and build digital
@@ -191,13 +191,16 @@ export default function About() {
 
             <motion.p
               variants={fadeUp}
-              className="mt-4 text-base leading-relaxed text-white/60"
+              className="mt-4 text-base leading-relaxed text-white/60 text-center md:text-left"
             >
               Our approach is minimal and modern: clear storytelling, clean
               design, and a consistent brand look across every screen.
             </motion.p>
 
-            <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-4">
+            <motion.div
+              variants={fadeUp}
+              className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start"
+            >
               <motion.a
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}

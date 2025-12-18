@@ -89,7 +89,7 @@ export default function Hero() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
-            className="relative z-10"
+            className="relative z-10 text-center md:text-left"
           >
             <motion.div
               variants={item}
@@ -103,7 +103,7 @@ export default function Hero() {
 
             <motion.h1
               variants={item}
-              className="mt-8 text-5xl font-bold leading-[1.1] text-white md:text-6xl lg:text-7xl"
+              className="mt-8 text-5xl font-bold leading-[1.1] text-white md:text-6xl lg:text-7xl text-center md:text-left"
             >
               Ads that look{" "}
               <span className="relative inline-block">
@@ -126,13 +126,16 @@ export default function Hero() {
 
             <motion.p
               variants={item}
-              className="mt-6 max-w-xl text-lg leading-relaxed text-white/60"
+              className="mt-6 max-w-xl text-lg leading-relaxed text-white/60 text-center md:text-left"
             >
               High-impact video, photography, and digital signage for
               restaurants and local businesses. Clean, modern, effective.
             </motion.p>
 
-            <motion.div variants={item} className="mt-10 flex flex-wrap gap-4">
+            <motion.div
+              variants={item}
+              className="mt-10 flex flex-wrap gap-4 justify-center md:justify-start"
+            >
               <motion.a
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}

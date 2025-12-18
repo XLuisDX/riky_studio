@@ -244,9 +244,6 @@ export default function Footer() {
                   <FooterLink href="#portfolio">Portfolio</FooterLink>
                 </li>
                 <li>
-                  <FooterLink href="#pricing">Pricing</FooterLink>
-                </li>
-                <li>
                   <FooterLink href="#contact">Contact</FooterLink>
                 </li>
               </ul>
@@ -294,34 +291,11 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: easeOut }}
-          className="relative flex flex-col gap-4 border-t border-white/10 py-8 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between"
+          className="relative flex flex-col gap-4 border-t border-white/10 py-8 text-sm text-white/50 sm:flex-row sm:items-center justify-center"
         >
           <span>
             © {new Date().getFullYear()} Riky Studio. All rights reserved.
           </span>
-          <div className="flex items-center gap-6">
-            <span className="text-white/40">Built with React + Tailwind</span>
-            <motion.a
-              href="#top"
-              whileHover={{ y: -2 }}
-              transition={{ duration: 0.2 }}
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm text-white/70 hover:text-sky-400 hover:border-sky-400/30 transition-all"
-              aria-label="Back to top"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 15l-6-6-6 6" />
-              </svg>
-            </motion.a>
-          </div>
         </motion.div>
       </Container>
     </footer>

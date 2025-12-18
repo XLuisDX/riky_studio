@@ -88,7 +88,7 @@ export default function Portfolio() {
         title: "Restaurant Promo Reel",
         category: "Video Ads",
         tag: "Short-form",
-        img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&h=600&fit=crop",
+        img: "/service1.jpg",
       },
       {
         title: "Signature Dish Set",
@@ -100,13 +100,13 @@ export default function Portfolio() {
         title: "Lobby Screen Setup",
         category: "Digital Signage",
         tag: "Installation",
-        img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&h=600&fit=crop",
+        img: "/service3.jpg",
       },
       {
         title: "Weekly Specials Pack",
         category: "Screen Content",
         tag: "Templates",
-        img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+        img: "/service4.jpg",
       },
       {
         title: "Product Ad Cutdown",

@@ -271,7 +271,7 @@ export default function Testimonials() {
 
                   <div className="mt-10 h-px bg-gradient-to-r from-white/20 via-white/10 to-transparent" />
 
-                  <div className="mt-8 flex items-center justify-between gap-4">
+                  <div className="mt-8 flex items-center justify-between gap-4 mb-8">
                     <div className="flex items-center gap-4">
                       {/* Avatar */}
                       <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-white/10 bg-gradient-to-br from-sky-400/20 to-blue-600/20 text-xl font-bold text-white backdrop-blur-sm">
