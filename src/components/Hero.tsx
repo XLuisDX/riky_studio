@@ -69,16 +69,13 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden min-h-screen flex items-center">
-      {/* Refined gradient background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-0 h-[600px] w-[800px] -translate-x-1/2 rounded-full bg-sky-400/8 blur-[120px]" />
         <div className="absolute right-[-100px] top-[20%] h-[500px] w-[500px] rounded-full bg-blue-600/6 blur-[100px]" />
         <div className="absolute left-[-100px] bottom-[20%] h-[500px] w-[500px] rounded-full bg-cyan-400/6 blur-[100px]" />
 
-        {/* Subtle grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_80%)]" />
 
-        {/* Vignette */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/40" />
       </div>
 
@@ -181,7 +178,6 @@ export default function Hero() {
             className="relative"
           >
             <div className="relative aspect-square w-full max-w-[600px] mx-auto">
-              {/* Animated glow rings */}
               <motion.div
                 className="absolute inset-0 rounded-full border border-white/5"
                 animate={{
@@ -208,7 +204,6 @@ export default function Hero() {
                 }}
               />
 
-              {/* Main content area */}
               <div className="relative z-10 h-full w-full rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-sm p-8">
                 {anim ? (
                   <Lottie
@@ -246,7 +241,6 @@ export default function Hero() {
                 )}
               </div>
 
-              {/* Floating accent elements */}
               <motion.div
                 className="absolute -top-6 -right-6 h-32 w-32 rounded-full bg-sky-400/10 blur-2xl"
                 animate={{

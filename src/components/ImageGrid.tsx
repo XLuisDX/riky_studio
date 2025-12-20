@@ -138,7 +138,7 @@ export function ImageGrid() {
     },
     {
       title: "Food & Commercial Photography",
-      subtitle: "Clean, premium product shots",
+      subtitle: "Clean, amazing product shots",
       img: "/img1.png",
     },
     {

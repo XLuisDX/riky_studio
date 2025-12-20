@@ -2,7 +2,6 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 
-// Container component
 function Container({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
@@ -94,24 +93,86 @@ function InfoCard({
 }
 
 export default function Contact() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle"
+  );
+  const [errorMessage, setErrorMessage] = useState("");
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault();
     setStatus("sending");
-    window.setTimeout(() => setStatus("sent"), 1000);
-  }
+    setErrorMessage("");
+
+    const formElement = e.currentTarget.querySelector(
+      "[data-form]"
+    ) as HTMLDivElement;
+    const inputs = formElement.querySelectorAll("input, textarea");
+
+    const formData = new FormData();
+    let isValid = true;
+
+    inputs.forEach((input) => {
+      const element = input as HTMLInputElement | HTMLTextAreaElement;
+      if (element.required && !element.value) {
+        isValid = false;
+      }
+      formData.append(element.name, element.value);
+    });
+
+    if (!isValid) {
+      setStatus("error");
+      setErrorMessage("Please fill in all required fields.");
+      setTimeout(() => {
+        setStatus("idle");
+        setErrorMessage("");
+      }, 3000);
+      return;
+    }
+
+    formData.append("access_key", "0837c98c-027a-4a68-9959-dfa3b04d7ade");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus("sent");
+        inputs.forEach((input) => {
+          const element = input as HTMLInputElement | HTMLTextAreaElement;
+          element.value = "";
+        });
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        throw new Error(data.message || "Error sending message");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setStatus("error");
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Error sending message. Please try again."
+      );
+      setTimeout(() => {
+        setStatus("idle");
+        setErrorMessage("");
+      }, 5000);
+    }
+  };
 
   return (
-    <section id="contact" className="relative py-20 md:py-28 overflow-hidden">
-      {/* Refined gradient background */}
+    <section
+      id="contact"
+      className="relative py-20 md:py-28 overflow-hidden bg-slate-950"
+    >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[-300px] top-[-100px] h-[700px] w-[700px] rounded-full bg-blue-600/8 blur-[120px]" />
         <div className="absolute right-[-300px] bottom-[-150px] h-[700px] w-[700px] rounded-full bg-sky-400/8 blur-[120px]" />
-
-        {/* Subtle grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_90%)]" />
-
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/30" />
       </div>
 
@@ -122,7 +183,6 @@ export default function Contact() {
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {/* Header */}
           <motion.div variants={fadeUp} className="mb-16 text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-1.5 mb-6">
               <div className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
@@ -135,7 +195,7 @@ export default function Contact() {
               Let's build something that looks{" "}
               <span className="relative inline-block">
                 <span className="relative z-10 bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">
-                  premium
+                  amazing
                 </span>
                 <motion.span
                   className="absolute inset-0 bg-sky-400/20 blur-xl"
@@ -159,7 +219,6 @@ export default function Contact() {
           </motion.div>
 
           <div className="grid gap-8 lg:grid-cols-3">
-            {/* Form - Takes 2 columns on large screens */}
             <motion.div variants={fadeUp} className="lg:col-span-2">
               <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-8 md:p-10 shadow-2xl">
                 <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
@@ -173,66 +232,94 @@ export default function Contact() {
                   }}
                 />
 
-                <form onSubmit={onSubmit} className="relative space-y-6">
-                  <div className="grid gap-6 sm:grid-cols-2">
+                <div onSubmit={handleSubmit} className="relative space-y-6">
+                  <div data-form className="space-y-6">
+                    <div className="grid gap-6 sm:grid-cols-2">
+                      <div>
+                        <label className="text-xs font-medium tracking-[0.2em] text-white/70 uppercase">
+                          Name *
+                        </label>
+                        <input
+                          required
+                          name="name"
+                          type="text"
+                          placeholder="Your name"
+                          className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-950/50 backdrop-blur-sm px-5 py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-sky-400/50 focus:ring-4 focus:ring-sky-400/10"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-medium tracking-[0.2em] text-white/70 uppercase">
+                          Email *
+                        </label>
+                        <input
+                          required
+                          name="email"
+                          type="email"
+                          placeholder="you@company.com"
+                          className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-950/50 backdrop-blur-sm px-5 py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-sky-400/50 focus:ring-4 focus:ring-sky-400/10"
+                        />
+                      </div>
+                    </div>
+
                     <div>
                       <label className="text-xs font-medium tracking-[0.2em] text-white/70 uppercase">
-                        Name
+                        Business (Optional)
                       </label>
                       <input
-                        required
-                        name="name"
-                        placeholder="Your name"
+                        name="business"
+                        type="text"
+                        placeholder="Restaurant / business name"
                         className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-950/50 backdrop-blur-sm px-5 py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-sky-400/50 focus:ring-4 focus:ring-sky-400/10"
                       />
                     </div>
 
                     <div>
                       <label className="text-xs font-medium tracking-[0.2em] text-white/70 uppercase">
-                        Email
+                        What do you need? *
                       </label>
-                      <input
+                      <textarea
                         required
-                        name="email"
-                        type="email"
-                        placeholder="you@company.com"
-                        className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-950/50 backdrop-blur-sm px-5 py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-sky-400/50 focus:ring-4 focus:ring-sky-400/10"
+                        name="message"
+                        rows={6}
+                        placeholder="Tell us about your project (video ads, photography, screens, media player, etc.)"
+                        className="mt-3 w-full resize-none rounded-2xl border border-white/10 bg-slate-950/50 backdrop-blur-sm px-5 py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-sky-400/50 focus:ring-4 focus:ring-sky-400/10"
                       />
                     </div>
                   </div>
 
-                  <div>
-                    <label className="text-xs font-medium tracking-[0.2em] text-white/70 uppercase">
-                      Business (Optional)
-                    </label>
-                    <input
-                      name="business"
-                      placeholder="Restaurant / business name"
-                      className="mt-3 w-full rounded-2xl border border-white/10 bg-slate-950/50 backdrop-blur-sm px-5 py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-sky-400/50 focus:ring-4 focus:ring-sky-400/10"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-medium tracking-[0.2em] text-white/70 uppercase">
-                      What do you need?
-                    </label>
-                    <textarea
-                      required
-                      name="message"
-                      rows={6}
-                      placeholder="Tell us about your project (video ads, photography, screens, media player, etc.)"
-                      className="mt-3 w-full resize-none rounded-2xl border border-white/10 bg-slate-950/50 backdrop-blur-sm px-5 py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-sky-400/50 focus:ring-4 focus:ring-sky-400/10"
-                    />
-                  </div>
+                  {status === "error" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="rounded-2xl border border-red-500/20 bg-red-500/10 backdrop-blur-sm px-5 py-4"
+                    >
+                      <p className="text-sm text-red-400">{errorMessage}</p>
+                    </motion.div>
+                  )}
 
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pt-2">
                     <motion.button
-                      type="submit"
+                      onClick={(e) => {
+                        const parent = e.currentTarget.closest(
+                          ".space-y-6"
+                        ) as HTMLDivElement | null;
+                        if (parent) {
+                          const fakeEvent = {
+                            preventDefault: () => {},
+                            currentTarget: parent,
+                          } as React.FormEvent<HTMLDivElement>;
+                          handleSubmit(fakeEvent);
+                        }
+                      }}
                       disabled={status === "sending"}
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
+                      whileHover={{
+                        scale: status === "sending" ? 1 : 1.02,
+                        y: status === "sending" ? 0 : -2,
+                      }}
+                      whileTap={{ scale: status === "sending" ? 1 : 0.98 }}
                       transition={{ duration: 0.2, ease: easeOut }}
-                      className="group/btn relative overflow-hidden rounded-2xl bg-sky-400 px-8 py-4 text-base font-semibold text-slate-950 shadow-lg shadow-sky-400/30 disabled:opacity-60"
+                      className="group/btn relative overflow-hidden rounded-2xl bg-sky-400 px-8 py-4 text-base font-semibold text-slate-950 shadow-lg shadow-sky-400/30 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       <AnimatePresence mode="wait" initial={false}>
                         {status === "sent" ? (
@@ -295,7 +382,7 @@ export default function Contact() {
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-sky-300 to-blue-400"
                         initial={{ x: "100%" }}
-                        whileHover={{ x: 0 }}
+                        whileHover={{ x: status === "sending" ? "100%" : 0 }}
                         transition={{ duration: 0.3 }}
                       />
                     </motion.button>
@@ -306,11 +393,10 @@ export default function Contact() {
                       </p>
                     </div>
                   </div>
-                </form>
+                </div>
               </div>
             </motion.div>
 
-            {/* Contact Info - Takes 1 column on large screens */}
             <motion.div variants={stagger} className="space-y-6">
               <motion.div variants={fadeUp}>
                 <InfoCard

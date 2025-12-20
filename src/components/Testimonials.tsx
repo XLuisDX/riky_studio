@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 
-// Container component
 function Container({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
@@ -54,7 +53,6 @@ function StarRow({ rating }: { rating: number }) {
   );
 }
 
-// Quote Icon
 function QuoteIcon() {
   return (
     <svg
@@ -76,7 +74,7 @@ export default function Testimonials() {
         name: "Sarah M.",
         role: "Restaurant Owner",
         quote:
-          "The videos look premium and the turnaround was fast. Our promos finally feel consistent across Instagram and in-store.",
+          "The videos look excellent and the turnaround was fast. Our promos finally feel consistent across Instagram and in-store.",
         rating: 5,
       },
       {
@@ -125,12 +123,10 @@ export default function Testimonials() {
       id="testimonials"
       className="relative py-20 md:py-28 overflow-hidden"
     >
-      {/* Refined gradient background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[-300px] top-[-100px] h-[700px] w-[700px] rounded-full bg-sky-400/8 blur-[120px]" />
         <div className="absolute right-[-300px] bottom-[-150px] h-[700px] w-[700px] rounded-full bg-blue-600/6 blur-[120px]" />
 
-        {/* Subtle grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_90%)]" />
 
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/30" />
@@ -143,7 +139,6 @@ export default function Testimonials() {
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {/* Header */}
           <motion.div variants={fadeUp} className="mb-16 text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-1.5 mb-6">
               <div className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
@@ -156,7 +151,7 @@ export default function Testimonials() {
               Trusted by businesses that want a{" "}
               <span className="relative inline-block">
                 <span className="relative z-10 bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">
-                  premium look
+                  awesome look
                 </span>
                 <motion.span
                   className="absolute inset-0 bg-sky-400/20 blur-xl"
@@ -177,7 +172,6 @@ export default function Testimonials() {
               screen setups.
             </p>
 
-            {/* Navigation Buttons */}
             <motion.div
               variants={fadeUp}
               className="mt-8 flex justify-center gap-3"
@@ -229,15 +223,12 @@ export default function Testimonials() {
             </motion.div>
           </motion.div>
 
-          {/* Testimonial Card */}
           <motion.div
             variants={fadeUp}
             className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl"
           >
-            {/* Top accent line */}
             <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
 
-            {/* Hover gradient overlay */}
             <motion.div
               aria-hidden
               className="pointer-events-none absolute inset-0 opacity-50 group-hover:opacity-70"
@@ -249,7 +240,6 @@ export default function Testimonials() {
             />
 
             <div className="relative min-h-[400px] p-10 md:p-14">
-              {/* Quote Icon Background */}
               <div className="absolute top-8 right-8 opacity-50">
                 <QuoteIcon />
               </div>
@@ -273,7 +263,6 @@ export default function Testimonials() {
 
                   <div className="mt-8 flex items-center justify-between gap-4 mb-8">
                     <div className="flex items-center gap-4">
-                      {/* Avatar */}
                       <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-white/10 bg-gradient-to-br from-sky-400/20 to-blue-600/20 text-xl font-bold text-white backdrop-blur-sm">
                         {active.name[0]}
                       </div>
@@ -318,7 +307,6 @@ export default function Testimonials() {
               </AnimatePresence>
             </div>
 
-            {/* Dot Indicators */}
             <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center gap-2">
               {items.map((_, i) => (
                 <motion.button
@@ -341,7 +329,6 @@ export default function Testimonials() {
               ))}
             </div>
 
-            {/* Floating glow accent */}
             <motion.div
               className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-sky-400/15 blur-3xl"
               animate={{

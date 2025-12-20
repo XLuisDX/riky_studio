@@ -1,12 +1,9 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 
-// Container component
 function Container({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      {children}
-    </div>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
   );
 }
 
@@ -171,14 +168,12 @@ export default function Services() {
 
   return (
     <section id="services" className="relative py-20 md:py-28 overflow-hidden">
-      {/* Refined gradient background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[-300px] top-[-100px] h-[600px] w-[600px] rounded-full bg-sky-400/8 blur-[120px]" />
         <div className="absolute right-[-300px] bottom-[-150px] h-[700px] w-[700px] rounded-full bg-blue-600/6 blur-[120px]" />
-        
-        {/* Subtle grid overlay */}
+
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_90%)]" />
-        
+
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/30" />
       </div>
 
@@ -189,11 +184,7 @@ export default function Services() {
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {/* Header */}
-          <motion.div
-            variants={fadeUp}
-            className="mb-16 text-center"
-          >
+          <motion.div variants={fadeUp} className="mb-16 text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-1.5 mb-6">
               <div className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
               <span className="text-[10px] font-medium tracking-[0.2em] text-white/70 uppercase">
@@ -222,7 +213,8 @@ export default function Services() {
             </h2>
 
             <p className="mt-6 mx-auto max-w-2xl text-lg text-white/60">
-              From production to installation, we deliver a polished system that looks premium and runs smoothly—online and in-store.
+              From production to installation, we deliver a polished system that
+              looks premium and runs smoothly—online and in-store.
             </p>
 
             <motion.a
@@ -253,7 +245,6 @@ export default function Services() {
             </motion.a>
           </motion.div>
 
-          {/* Services Grid */}
           <motion.div
             variants={stagger}
             className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
@@ -269,10 +260,8 @@ export default function Services() {
                   transition={{ duration: 0.3, ease: easeOut }}
                   className="relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-8"
                 >
-                  {/* Top accent line */}
                   <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
 
-                  {/* Hover gradient overlay */}
                   <motion.div
                     className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100"
                     transition={{ duration: 0.4, ease: easeOut }}
@@ -293,7 +282,7 @@ export default function Services() {
                     <h3 className="mt-6 text-xl font-semibold text-white">
                       {service.title}
                     </h3>
-                    
+
                     <p className="mt-3 text-base leading-relaxed text-white/60">
                       {service.desc}
                     </p>
@@ -320,7 +309,6 @@ export default function Services() {
                     </motion.a>
                   </div>
 
-                  {/* Bottom glow accent */}
                   <motion.div
                     className="pointer-events-none absolute -bottom-12 -right-12 h-32 w-32 rounded-full bg-sky-400/10 blur-2xl opacity-0 group-hover:opacity-100"
                     transition={{ duration: 0.4 }}

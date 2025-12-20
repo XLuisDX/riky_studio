@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 
-// Container component
 function Container({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
@@ -98,12 +97,10 @@ export default function Pricing() {
 
   return (
     <section id="pricing" className="relative py-20 md:py-28 overflow-hidden">
-      {/* Refined gradient background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[-300px] top-[-100px] h-[700px] w-[700px] rounded-full bg-blue-600/8 blur-[120px]" />
         <div className="absolute right-[-300px] bottom-[-150px] h-[700px] w-[700px] rounded-full bg-sky-400/8 blur-[120px]" />
 
-        {/* Subtle grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_90%)]" />
 
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/30" />
@@ -116,7 +113,6 @@ export default function Pricing() {
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {/* Header */}
           <motion.div variants={fadeUp} className="mb-16 text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-1.5 mb-6">
               <div className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
@@ -180,7 +176,6 @@ export default function Pricing() {
             </div>
           </motion.div>
 
-          {/* Pricing Cards */}
           <motion.div variants={stagger} className="grid gap-6 lg:grid-cols-3">
             {plans.map((plan) => (
               <motion.div
@@ -201,7 +196,6 @@ export default function Pricing() {
                       : "border-white/10 bg-white/5",
                   ].join(" ")}
                 >
-                  {/* Top accent line */}
                   <div
                     className={[
                       "pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent to-transparent",
@@ -209,7 +203,6 @@ export default function Pricing() {
                     ].join(" ")}
                   />
 
-                  {/* Hover gradient overlay */}
                   <motion.div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100"
@@ -221,7 +214,6 @@ export default function Pricing() {
                     }}
                   />
 
-                  {/* Featured Badge */}
                   {plan.featured && (
                     <motion.div
                       className="absolute -right-12 top-8 rotate-12"
@@ -248,7 +240,6 @@ export default function Pricing() {
                   )}
 
                   <div className="relative">
-                    {/* Plan Header */}
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <h3 className="text-2xl font-bold text-white">
@@ -269,10 +260,8 @@ export default function Pricing() {
                       </div>
                     </div>
 
-                    {/* Divider */}
                     <div className="mt-6 h-px bg-gradient-to-r from-white/10 via-white/20 to-white/10" />
 
-                    {/* Features List */}
                     <motion.ul variants={stagger} className="mt-6 space-y-4">
                       {plan.bullets.map((bullet, i) => (
                         <motion.li
@@ -291,7 +280,6 @@ export default function Pricing() {
                       ))}
                     </motion.ul>
 
-                    {/* CTA Buttons */}
                     <div className="mt-8 flex flex-col gap-3">
                       <motion.a
                         href="#contact"
@@ -329,7 +317,6 @@ export default function Pricing() {
                     </div>
                   </div>
 
-                  {/* Bottom glow accent */}
                   {plan.featured && (
                     <motion.div
                       className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-sky-400/20 blur-3xl"
@@ -348,7 +335,6 @@ export default function Pricing() {
             ))}
           </motion.div>
 
-          {/* Bottom Note */}
           <motion.div variants={fadeUp} className="mt-12 text-center">
             <div className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm px-6 py-3">
               <span className="text-2xl">💡</span>

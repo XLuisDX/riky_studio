@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 
-// Container component
 function Container({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
@@ -35,7 +34,6 @@ const fadeUp: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: easeOut } },
 };
 
-// Map Pin Icon Component
 function MapPinIcon() {
   return (
     <svg
@@ -82,12 +80,10 @@ export default function ServiceArea({
       id="service-area"
       className="relative py-20 md:py-28 overflow-hidden"
     >
-      {/* Refined gradient background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[-300px] top-[100px] h-[600px] w-[600px] rounded-full bg-sky-400/8 blur-[120px]" />
         <div className="absolute right-[-300px] bottom-[-100px] h-[700px] w-[700px] rounded-full bg-blue-600/6 blur-[120px]" />
 
-        {/* Subtle grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_90%)]" />
 
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/30" />
@@ -100,7 +96,6 @@ export default function ServiceArea({
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {/* Header */}
           <motion.div variants={fadeUp} className="mb-16 text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-1.5 mb-6">
               <div className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
@@ -134,9 +129,7 @@ export default function ServiceArea({
             </p>
           </motion.div>
 
-          {/* Grid */}
           <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
-            {/* Content Side */}
             <motion.div
               variants={fadeUp}
               initial={{ opacity: 0, x: -30 }}
@@ -146,10 +139,8 @@ export default function ServiceArea({
               className="relative"
             >
               <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-8 shadow-2xl">
-                {/* Top accent line */}
                 <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
 
-                {/* Location Badge */}
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 backdrop-blur-md px-4 py-2">
                   <div className="text-sky-400">
                     <MapPinIcon />
@@ -159,7 +150,6 @@ export default function ServiceArea({
                   </span>
                 </div>
 
-                {/* Areas Cards */}
                 <div className="mt-6 space-y-4">
                   {areas.map((area, i) => (
                     <motion.div
@@ -187,7 +177,6 @@ export default function ServiceArea({
                   {body}
                 </p>
 
-                {/* Services List */}
                 <ul className="mt-6 space-y-3">
                   {bullets.map((bullet, i) => (
                     <motion.li
@@ -210,7 +199,6 @@ export default function ServiceArea({
                   </p>
                 </div>
 
-                {/* CTA Buttons */}
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <motion.a
                     href="#contact"
@@ -239,7 +227,6 @@ export default function ServiceArea({
                   </motion.a>
                 </div>
 
-                {/* Floating glow accent */}
                 <motion.div
                   className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-sky-400/15 blur-3xl"
                   animate={{
@@ -254,7 +241,6 @@ export default function ServiceArea({
               </div>
             </motion.div>
 
-            {/* Map Side */}
             <motion.div
               variants={fadeUp}
               initial={{ opacity: 0, x: 30 }}
@@ -264,10 +250,8 @@ export default function ServiceArea({
               className="relative"
             >
               <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl">
-                {/* Top accent line */}
                 <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
 
-                {/* Map Header */}
                 <div className="border-b border-white/10 p-6 md:p-8">
                   <div className="flex items-center gap-3">
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 text-sky-400">
@@ -284,7 +268,6 @@ export default function ServiceArea({
                   </div>
                 </div>
 
-                {/* Map Container */}
                 <div className="p-4 md:p-6">
                   <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/30">
                     <div className="relative w-full pb-[75%]">
@@ -299,12 +282,10 @@ export default function ServiceArea({
                       />
                     </div>
 
-                    {/* Map overlay gradient */}
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
                   </div>
                 </div>
 
-                {/* Floating glow accent */}
                 <motion.div
                   className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full bg-blue-500/15 blur-3xl"
                   animate={{

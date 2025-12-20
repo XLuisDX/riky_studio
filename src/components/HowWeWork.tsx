@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 
-// Container component
 function Container({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
@@ -46,10 +45,8 @@ function StepCard({
         transition={{ duration: 0.3, ease: easeOut }}
         className="relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-8 shadow-2xl"
       >
-        {/* Top accent line */}
         <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
 
-        {/* Hover gradient overlay */}
         <motion.div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100"
@@ -61,7 +58,6 @@ function StepCard({
         />
 
         <div className="relative flex items-start gap-5">
-          {/* Number Badge */}
           <motion.div
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ duration: 0.3, ease: easeOut }}
@@ -81,7 +77,6 @@ function StepCard({
           </div>
         </div>
 
-        {/* Bottom glow accent */}
         <motion.div
           className="pointer-events-none absolute -bottom-12 -right-12 h-32 w-32 rounded-full bg-sky-400/10 blur-2xl opacity-0 group-hover:opacity-100"
           transition={{ duration: 0.4 }}
@@ -120,12 +115,10 @@ export default function HowWeWork() {
       id="how-we-work"
       className="relative py-20 md:py-28 overflow-hidden"
     >
-      {/* Refined gradient background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[-300px] top-[-100px] h-[700px] w-[700px] rounded-full bg-sky-400/8 blur-[120px]" />
         <div className="absolute right-[-300px] bottom-[-150px] h-[700px] w-[700px] rounded-full bg-blue-600/6 blur-[120px]" />
 
-        {/* Subtle grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_90%)]" />
 
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/30" />
@@ -138,7 +131,6 @@ export default function HowWeWork() {
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {/* Header */}
           <motion.div variants={fadeUp} className="mb-16 text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-1.5 mb-6">
               <div className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
@@ -151,7 +143,7 @@ export default function HowWeWork() {
               A simple process.{" "}
               <span className="relative inline-block">
                 <span className="relative z-10 bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">
-                  Premium results
+                  Great results
                 </span>
                 <motion.span
                   className="absolute inset-0 bg-sky-400/20 blur-xl"
@@ -200,9 +192,7 @@ export default function HowWeWork() {
             </motion.a>
           </motion.div>
 
-          {/* Timeline Container */}
           <div className="relative">
-            {/* Vertical Timeline Line */}
             <motion.div
               aria-hidden
               initial={{ opacity: 0, scaleY: 0 }}
@@ -212,7 +202,6 @@ export default function HowWeWork() {
               className="pointer-events-none absolute left-1/2 top-8 hidden h-[calc(100%-64px)] w-px -translate-x-1/2 bg-gradient-to-b from-sky-400/40 via-blue-500/40 to-sky-400/40 md:block"
             />
 
-            {/* Steps Grid */}
             <motion.div
               variants={stagger}
               className="grid gap-8 md:grid-cols-2"
@@ -225,7 +214,6 @@ export default function HowWeWork() {
                     "relative " + (idx % 2 === 0 ? "md:pr-10" : "md:pl-10")
                   }
                 >
-                  {/* Connection Dot */}
                   <motion.div
                     aria-hidden
                     className={
@@ -242,7 +230,6 @@ export default function HowWeWork() {
                     }}
                   >
                     <div className="relative">
-                      {/* Outer pulse ring */}
                       <motion.div
                         className="absolute inset-0 h-4 w-4 rounded-full bg-sky-400/30"
                         animate={{
@@ -256,7 +243,6 @@ export default function HowWeWork() {
                           delay: idx * 0.3,
                         }}
                       />
-                      {/* Center dot */}
                       <div className="relative h-4 w-4 rounded-full border-2 border-white/20 bg-gradient-to-br from-sky-400 to-blue-500 shadow-lg shadow-sky-400/50" />
                     </div>
                   </motion.div>
@@ -267,17 +253,8 @@ export default function HowWeWork() {
             </motion.div>
           </div>
 
-          {/* Bottom CTA */}
           <motion.div variants={fadeUp} className="mt-16 text-center">
             <div className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm px-6 py-4">
-              <div className="flex -space-x-2">
-                {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="h-8 w-8 rounded-full border-2 border-slate-950 bg-gradient-to-br from-sky-400/20 to-blue-600/20"
-                  />
-                ))}
-              </div>
               <span className="text-sm text-white/70">
                 Join{" "}
                 <span className="font-semibold text-white">

@@ -32,10 +32,8 @@ export default function ScrollToTop() {
           className="group fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl hover:border-sky-400/30 hover:bg-white/10 transition-all md:bottom-8 md:right-8"
           aria-label="Scroll to top"
         >
-          {/* Gradient overlay on hover */}
           <motion.div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-sky-400/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-          {/* Icon */}
           <svg
             width="24"
             height="24"
@@ -50,7 +48,6 @@ export default function ScrollToTop() {
             <path d="M18 15l-6-6-6 6" />
           </svg>
 
-          {/* Pulsing ring */}
           <motion.div
             className="absolute inset-0 rounded-2xl border-2 border-sky-400/40"
             animate={{
@@ -64,7 +61,6 @@ export default function ScrollToTop() {
             }}
           />
 
-          {/* Glow effect */}
           <motion.div className="pointer-events-none absolute -inset-2 rounded-2xl bg-sky-400/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </motion.button>
       )}

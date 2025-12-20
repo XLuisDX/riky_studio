@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BrandLogo } from "./BrandLogo";
 
-// Container component
 function Container({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
@@ -71,19 +70,15 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: easeOut }}
       className={[
         "fixed top-4 left-4 right-4 z-[100] rounded-3xl border transition-all duration-500",
-        // ✅ Más “cristal”: menos opaco + blur + saturate
         scrolled
           ? "border-white/12 bg-slate-950/55 backdrop-blur-2xl shadow-2xl shadow-black/25 backdrop-saturate-150"
           : "border-white/8 bg-slate-950/35 backdrop-blur-xl backdrop-saturate-150",
       ].join(" ")}
     >
-      {/* Top glow line */}
       <div className="pointer-events-none absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" />
 
-      {/* ✅ Glass highlight (shine) */}
       <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-b from-white/10 via-white/5 to-transparent opacity-60" />
 
-      {/* Animated background orbs */}
       <motion.div
         className="pointer-events-none absolute inset-0 rounded-3xl opacity-30"
         animate={{
@@ -98,7 +93,6 @@ export default function Navbar() {
 
       <Container>
         <div className="flex h-16 sm:h-18 items-center justify-between">
-          {/* Logo */}
           <motion.a
             href="#top"
             whileHover={{ scale: 1.02 }}
@@ -114,7 +108,6 @@ export default function Navbar() {
                 <BrandLogo className="h-full w-full object-contain" />
               </motion.div>
 
-              {/* Spinning ring on hover */}
               <motion.div
                 className="absolute inset-0 rounded-2xl border-2 border-sky-400/40"
                 initial={{ rotate: 0, scale: 1, opacity: 0 }}
@@ -123,7 +116,6 @@ export default function Navbar() {
               />
             </div>
 
-            {/* ✅ Desktop text (igual que antes) */}
             <div className="hidden sm:block leading-tight">
               <div className="text-base font-bold text-white group-hover:text-sky-400 transition-colors">
                 Riky Studio
@@ -133,7 +125,6 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* ✅ Mobile name next to icon */}
             <div className="sm:hidden flex items-center">
               <span className="text-sm font-bold text-white/95 group-hover:text-sky-400 transition-colors">
                 Riky Studio
@@ -141,7 +132,6 @@ export default function Navbar() {
             </div>
           </motion.a>
 
-          {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => {
               const id = item.href.slice(1);
@@ -166,7 +156,6 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-3">
             <motion.a
               href="#contact"
@@ -184,7 +173,6 @@ export default function Navbar() {
             </motion.a>
           </div>
 
-          {/* Mobile Menu Button */}
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setMobileOpen((v) => !v)}
@@ -219,7 +207,6 @@ export default function Navbar() {
           </motion.button>
         </div>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {mobileOpen && (
             <motion.div

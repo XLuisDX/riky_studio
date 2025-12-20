@@ -1,12 +1,9 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 
-// Container component
 function Container({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      {children}
-    </div>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
   );
 }
 
@@ -25,12 +22,10 @@ const fadeUp: Variants = {
 export default function About() {
   return (
     <section id="about" className="relative py-20 md:py-28 overflow-hidden">
-      {/* Refined gradient background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute left-[-200px] top-[100px] h-[600px] w-[600px] rounded-full bg-sky-400/8 blur-[120px] md:left-[-300px]" />
         <div className="absolute right-[-200px] top-[-100px] h-[700px] w-[700px] rounded-full bg-blue-600/6 blur-[120px] md:right-[-300px]" />
 
-        {/* Subtle grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_90%)]" />
 
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/30" />
@@ -50,7 +45,6 @@ export default function About() {
               transition={{ duration: 0.3, ease: easeOut }}
               className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl"
             >
-              {/* Top accent line */}
               <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
 
               <div className="relative aspect-[4/3] overflow-hidden">
@@ -65,14 +59,12 @@ export default function About() {
                   transition={{ duration: 0.8, ease: easeOut }}
                 />
 
-                {/* Sophisticated overlays */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
 
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-transparent" />
 
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-slate-950 via-slate-950/85 to-transparent" />
 
-                {/* Animated gradient overlay on hover */}
                 <motion.div
                   aria-hidden
                   className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-40"
@@ -83,7 +75,6 @@ export default function About() {
                   }}
                 />
 
-                {/* Content overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-8">
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -109,7 +100,6 @@ export default function About() {
                 </div>
               </div>
 
-              {/* Floating glow accent */}
               <motion.div
                 className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-sky-400/15 blur-3xl"
                 animate={{
@@ -123,7 +113,6 @@ export default function About() {
               />
             </motion.div>
 
-            {/* Decorative elements */}
             <motion.div
               className="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-blue-500/10 blur-2xl"
               animate={{
@@ -186,7 +175,7 @@ export default function About() {
               Riky Studio helps you promote smarter—online and in-store. We
               produce video ads, commercial photography, and build digital
               signage systems that are simple to run and designed to look
-              premium.
+              awesome.
             </motion.p>
 
             <motion.p

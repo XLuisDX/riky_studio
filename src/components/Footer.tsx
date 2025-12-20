@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
+import { BrandLogo } from "./BrandLogo";
 
-// Container component
 function Container({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
@@ -60,24 +60,12 @@ function FooterLink({
 }
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  function handleSubscribe() {
-    setSubscribed(true);
-    setTimeout(() => setSubscribed(false), 3000);
-  }
-
   return (
     <footer className="relative border-t border-white/10 overflow-hidden">
-      {/* Refined gradient background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[-300px] bottom-[-250px] h-[700px] w-[700px] rounded-full bg-blue-600/6 blur-[120px]" />
         <div className="absolute right-[-300px] top-[-250px] h-[700px] w-[700px] rounded-full bg-sky-400/6 blur-[120px]" />
-
-        {/* Subtle grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_90%)]" />
-
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-950/50" />
       </div>
 
@@ -87,10 +75,9 @@ export default function Footer() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="relative grid gap-12 py-16 md:py-20 lg:grid-cols-12 lg:gap-16"
+          className="relative grid gap-12 py-16 md:py-20 lg:grid-cols-2 lg:gap-16"
         >
-          {/* Brand & Description */}
-          <motion.div variants={fadeUp} className="lg:col-span-4">
+          <motion.div variants={fadeUp}>
             <motion.a
               href="#top"
               whileHover={{ y: -4 }}
@@ -115,7 +102,6 @@ export default function Footer() {
               setups for restaurants and local businesses.
             </p>
 
-            {/* Social Links */}
             <div className="mt-8 flex items-center gap-4">
               <motion.a
                 href="https://www.instagram.com/rik_istudy?igsh=MWwxNzh4ZG95aWl0eQ%3D%3D&utm_source=qr"
@@ -166,69 +152,10 @@ export default function Footer() {
               </motion.a>
             </div>
 
-            {/* Subtle divider */}
             <div className="mt-8 h-px w-32 bg-gradient-to-r from-sky-400/40 via-white/10 to-transparent" />
           </motion.div>
 
-          {/* Newsletter */}
-          <motion.div variants={fadeUp} className="lg:col-span-5">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-1.5 mb-4">
-              <div className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
-              <span className="text-[10px] font-medium tracking-[0.2em] text-white/70 uppercase">
-                Newsletter
-              </span>
-            </div>
-
-            <h3 className="text-2xl font-bold text-white">
-              Get occasional tips{" "}
-              <span className="relative inline-block">
-                <span className="relative z-10 bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">
-                  & offers
-                </span>
-              </span>
-            </h3>
-
-            <p className="mt-3 text-base text-white/60">
-              No spam. Just practical content and updates.
-            </p>
-
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@company.com"
-                className="flex-1 rounded-2xl border border-white/10 bg-slate-950/50 backdrop-blur-sm px-5 py-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-sky-400/50 focus:ring-4 focus:ring-sky-400/10"
-              />
-              <motion.button
-                onClick={handleSubscribe}
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2, ease: easeOut }}
-                className="group relative overflow-hidden rounded-2xl bg-sky-400 px-8 py-4 text-base font-semibold text-slate-950 shadow-lg shadow-sky-400/25 sm:w-auto"
-              >
-                <span className="relative z-10">
-                  {subscribed ? "Subscribed! ✓" : "Subscribe"}
-                </span>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-sky-300 to-blue-400"
-                  initial={{ x: "100%" }}
-                  whileHover={{ x: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.button>
-            </div>
-
-            <p className="mt-4 text-sm text-white/50">
-              💡 Newsletter form can be wired later (Mailchimp/ConvertKit/etc.)
-            </p>
-          </motion.div>
-
-          {/* Links */}
-          <motion.div
-            variants={fadeUp}
-            className="grid grid-cols-2 gap-10 lg:col-span-3"
-          >
+          <motion.div variants={fadeUp} className="grid grid-cols-2 gap-10">
             <div>
               <p className="text-xs font-medium tracking-[0.2em] text-sky-400 uppercase mb-4">
                 Pages
@@ -285,7 +212,6 @@ export default function Footer() {
           </motion.div>
         </motion.div>
 
-        {/* Bottom Bar */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -301,8 +227,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-// Don't forget useState import
-import { useState } from "react";
-import { BrandLogo } from "./BrandLogo";
-

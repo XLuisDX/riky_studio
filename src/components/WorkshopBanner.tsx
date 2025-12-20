@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 
-// Container component
 function Container({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
@@ -63,12 +62,10 @@ function MiniStat({
 export default function WorkshopBanner() {
   return (
     <section id="workshop" className="relative py-20 md:py-28 overflow-hidden">
-      {/* Refined gradient background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[-300px] top-[-100px] h-[700px] w-[700px] rounded-full bg-blue-600/8 blur-[120px]" />
         <div className="absolute right-[-300px] bottom-[-150px] h-[700px] w-[700px] rounded-full bg-sky-400/8 blur-[120px]" />
 
-        {/* Subtle grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_90%)]" />
       </div>
 
@@ -80,12 +77,9 @@ export default function WorkshopBanner() {
           viewport={{ once: true, amount: 0.2 }}
           className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl"
         >
-          {/* Top accent line */}
           <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent" />
 
-          {/* Background Image & Overlays */}
           <div className="absolute inset-0">
-            {/* Animated gradient overlay */}
             <motion.div
               aria-hidden
               className="pointer-events-none absolute inset-0 opacity-50"
@@ -101,19 +95,16 @@ export default function WorkshopBanner() {
               }}
             />
 
-            {/* Background Image */}
             <img
               src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=1200&h=600&fit=crop"
               alt="Video editing workshop"
               className="h-full w-full object-cover opacity-20"
             />
 
-            {/* Sophisticated overlays */}
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/70" />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/50" />
           </div>
 
-          {/* Content */}
           <motion.div
             variants={stagger}
             initial="hidden"
@@ -121,7 +112,6 @@ export default function WorkshopBanner() {
             viewport={{ once: true, amount: 0.3 }}
             className="relative grid gap-10 p-10 md:grid-cols-12 md:p-14 lg:gap-16"
           >
-            {/* Left Content */}
             <div className="md:col-span-7">
               <motion.div
                 variants={fadeUp}
@@ -179,7 +169,6 @@ export default function WorkshopBanner() {
               </motion.div>
             </div>
 
-            {/* Right CTA */}
             <motion.div
               variants={fadeUp}
               className="md:col-span-5 flex items-center"
@@ -232,7 +221,6 @@ export default function WorkshopBanner() {
             </motion.div>
           </motion.div>
 
-          {/* Floating glow accents */}
           <motion.div
             className="pointer-events-none absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-sky-400/15 blur-3xl"
             animate={{
@@ -259,7 +247,6 @@ export default function WorkshopBanner() {
             }}
           />
 
-          {/* Bottom accent line */}
           <motion.div
             aria-hidden
             className="absolute bottom-0 left-0 right-0 mx-auto h-px w-0 bg-gradient-to-r from-transparent via-sky-400/60 to-transparent"
